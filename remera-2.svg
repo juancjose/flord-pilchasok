@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="800" height="1000" role="img" aria-label="Foto de ejemplo: Remera">
+<defs><radialGradient id="g" cx="30%" cy="75%" r="85%"><stop offset="0" stop-color="#16150f"/><stop offset="1" stop-color="#0b0a09"/></radialGradient></defs>
+<rect width="400" height="500" fill="url(#g)"/>
+<rect x="14" y="14" width="372" height="472" fill="none" stroke="#d4af55" stroke-opacity=".18"/>
+<g transform="translate(40 60) scale(.8)"><path d="M140 110 L100 125 L55 185 L90 210 L120 185 L120 380 L280 380 L280 185 L310 210 L345 185 L300 125 L260 110 C245 135 155 135 140 110 Z" fill="none" stroke="#d4af55" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" opacity=".9"/><path d="M140 110 L100 125 L55 185 L90 210 L120 185 L120 380 L280 380 L280 185 L310 210 L345 185 L300 125 L260 110 C245 135 155 135 140 110 Z" fill="#d4af55" fill-opacity=".07" transform="translate(10 8)"/></g>
+<text x="200" y="470" text-anchor="middle" font-family="Georgia, serif" font-size="11" letter-spacing="4" fill="#d4af55" fill-opacity=".55">FOTO DE EJEMPLO</text>
+</svg>
