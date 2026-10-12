@@ -1,5 +1,0 @@
-{
-  "functions": {
-    "api/*.js": { "includeFiles": "{products.js,config.js,shipping.js}" }
-  }
-}
