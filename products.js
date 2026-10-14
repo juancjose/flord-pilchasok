@@ -13,12 +13,30 @@
      sizes       -> talles disponibles. Si es talle único: ["Único"]
      description -> descripción corta
      images      -> lista de fotos (la primera es la principal)
+     colors      -> (opcional) colores: [{ name: "Negro", hex: "#111111", images: ["foto-negro.webp"] }].
+                    Si un color no tiene fotos, se muestra la primera foto disponible como ilustrativa.
      soldOut     -> (opcional) poné true si no hay stock
      weightGrams -> (opcional) peso en gramos de la prenda. Es solo informativo: aparece en el mensaje de
                     WhatsApp del pedido para que puedas calcular el envío más rápido. Los valores de
                     abajo son DE EJEMPLO.
    ============================================================ */
 window.PRODUCTS = [
+  {
+    id: "remera-encaje",
+    weightGrams: 200,
+    name: "Remera de Encaje",
+    price: 19999,
+    category: "Remeras",
+    sizes: ["S", "M", "L"],
+    description: "Remera manga larga de encaje texturado, entallada y suave. Ideal para usar sola o en capas.",
+    images: ["remera-encaje-marron.webp"],
+    colors: [
+      { name: "Marrón", hex: "#5a3424", images: ["remera-encaje-marron.webp", "remera-encaje-marron-foto.jpg"] },
+      { name: "Negro", hex: "#111111", images: [] },
+      { name: "Beige", hex: "#d9c4a5", images: [] },
+      { name: "Blanco", hex: "#f5f2ec", images: [] }
+    ]
+  },
   {
     id: "remera-algodon",
     weightGrams: 200,

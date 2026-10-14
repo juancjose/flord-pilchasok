@@ -138,6 +138,7 @@
     <div class="pm">
       <div class="pm__gallery">
         <img id="pmImage" alt="">
+        <p class="pm__colornote" id="pmColorNote" hidden></p>
         <div class="pm__thumbs" id="pmThumbs"></div>
       </div>
       <div class="pm__info">
@@ -145,6 +146,10 @@
         <h2 id="pmName"></h2>
         <p class="pm__price" id="pmPrice"></p>
         <p class="pm__desc" id="pmDesc"></p>
+        <div class="pm__sizes" id="pmColorsWrap" hidden>
+          <div class="label-row"><span>Color <em class="color-current" id="pmColorName"></em></span><span class="size-error" id="colorError" hidden>Elegí un color</span></div>
+          <div class="colors" id="pmColors" role="radiogroup" aria-label="Color"></div>
+        </div>
         <div class="pm__sizes">
           <div class="label-row"><span>Talle</span><span class="size-error" id="sizeError" hidden>Elegí un talle</span></div>
           <div class="sizes" id="pmSizes" role="radiogroup" aria-label="Talle"></div>
