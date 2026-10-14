@@ -183,13 +183,12 @@
     $("grid").innerHTML = list.map(function (p) {
       var cc = cardColor[p.id] || null, imgs = imagesFor(p, cc).imgs, cols = colorsOf(p), multi = cols.length > 1;
       var sc = multi ? shownColor(p, cc) : null;
-      return '<button class="card' + (multi ? " card--multi" : "") + '" data-id="' + esc(p.id) + '" aria-label="Ver ' + esc(p.name) + '">' +
-        '<div class="card__media"' + (multi ? ' data-cycle="1" title="Tocá la foto para ver otros colores"' : "") + '>' +
+      return '<button class="card' + "" + '" data-id="' + esc(p.id) + '" aria-label="Ver ' + esc(p.name) + '">' +
+        '<div class="card__media"' + "" + '>' +
         '<img src="' + esc(imgSrc(imgs[0])) + '" alt="' + esc(p.name) + '" loading="lazy">' +
         (imgs[1] ? '<img src="' + esc(imgSrc(imgs[1])) + '" alt="" loading="lazy">' : "") +
         (p.soldOut ? '<span class="badge">Agotado</span>' : "") +
         "</div>" +
-        (multi ? '<p class="cycle-hint">Tocá la foto para ver otros colores</p>' : "") +
         '<p class="card__cat">' + esc(p.category || "") + "</p>" +
         '<h3 class="card__name">' + esc(p.name) + "</h3>" +
         (cols.length ? '<p class="card__swatches" aria-label="Colores: ' + esc(cols.map(function (c) { return c.name; }).join(", ")) + '">' + cols.map(function (c) {
@@ -205,12 +204,6 @@
   $("grid").addEventListener("click", function (e) {
     var c = e.target.closest("[data-id]"); if (!c) return;
     var id = c.getAttribute("data-id"), p = byId(id);
-    if (e.target.closest("[data-cycle]") && p && colorsOf(p).length > 1) {
-      cardColor[id] = nextColor(p, cardColor[id]);
-      renderGrid();
-      var nc = $("grid").querySelector('[data-id="' + id + '"]'); if (nc) nc.focus({ preventScroll: true });
-      return;
-    }
     openProduct(id);
   });
 
@@ -239,7 +232,7 @@
     var sizes = p.sizes && p.sizes.length ? p.sizes : ["Único"];
     currentSize = sizes.length === 1 ? sizes[0] : null;
     var cols = colorsOf(p);
-    currentColor = cols.length === 1 ? cols[0].name : (cardColor[id] || null);
+    currentColor = cols.length === 1 ? cols[0].name : (cardColor[id] || shownColor(p, null));
     $("productModal").classList.toggle("pm--multi", cols.length > 1);
     $("pmCycleHint").hidden = cols.length < 2;
     $("colorError").hidden = true;

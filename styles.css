@@ -334,8 +334,7 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .pm__colornote{margin:.5rem 0 0;font-size:.78rem;color:var(--muted,#999);font-style:italic}
 
 /* Ciclo de colores al tocar la foto */
-.pm--multi #pmImage,.card--multi .card__media{cursor:pointer}
+.pm--multi #pmImage{cursor:pointer}
 .cycle-hint{margin:.45rem 0 0;font-size:.7rem;letter-spacing:.08em;color:var(--gold-text,#d4af55);opacity:.75;text-align:center}
 .cycle-hint::before{content:"\21BB";margin-right:.4em}
-.card .cycle-hint{text-align:left;margin:.4rem 0 0}
 .swatch-dot.is-active{outline:1px solid var(--gold,#d4af55);outline-offset:2px}
