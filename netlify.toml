@@ -1,7 +1,0 @@
-[build]
-  publish = "."
-  functions = "netlify/functions"
-
-[functions]
-  # Necesario para que la función pueda leer los precios (products.js) y las tarifas de envío (config.js, shipping.js)
-  included_files = ["products.js", "config.js", "shipping.js"]

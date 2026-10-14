@@ -2,7 +2,7 @@
    PRODUCTOS
    Para agregar un producto: copiá un bloque { ... }, pegalo
    debajo del último (con una coma entre bloques) y cambiá los datos.
-   Las fotos van en la carpeta "images" y acá se escribe solo el
+   Las fotos se suben al mismo lugar que este archivo (la raíz del repositorio, sin carpetas) y acá se escribe solo el
    nombre del archivo (ej: "remera-1.jpg").
 
    Campos:

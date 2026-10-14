@@ -24,17 +24,19 @@
   var rootEl = document.documentElement;
   function currentTheme() { return rootEl.getAttribute("data-theme") === "light" ? "light" : "dark"; }
   // Las fotos de ejemplo (.svg) tienen versión clara "-light.svg". Las fotos reales no se tocan.
-  var SAMPLE_IMG = /^(images\/)?((?:buzo|camisa|jean|pollera|remera|vestido)-\d)(-light)?\.svg$/;
+  var SAMPLE_IMG = /^(?:images\/)?((?:buzo|camisa|jean|pollera|remera|vestido)-\d)(-light)?\.svg$/;
   function themedSrc(src) {
     var m = SAMPLE_IMG.exec(src || "");
-    return m ? (m[1] || "") + m[2] + (currentTheme() === "light" ? "-light" : "") + ".svg" : src;
+    return m ? m[1] + (currentTheme() === "light" ? "-light" : "") + ".svg" : src;
   }
   function imgSrc(name) {
-    if (!name) return "images/placeholder.svg";
+    if (!name) return "placeholder.svg";
     return themedSrc(imgSrcRaw(name));
   }
   function imgSrcRaw(name) {
-    return /^(https?:)?\/\//.test(name) || name.indexOf("/") === 0 || name.indexOf("images/") === 0 ? name : "images/" + name;
+    // Versión plana: todas las fotos están en la misma carpeta que index.html, así que alcanza con el nombre del archivo.
+    // (Si alguien escribe "images/foto.jpg" por costumbre, se ignora la carpeta.)
+    return /^(https?:)?\/\//.test(name) || name.indexOf("/") === 0 ? name : name.replace(/^(\.\/)?images\//, "");
   }
   function applyTheme(t, save) {
     if (rootEl.getAttribute("data-theme") !== t) rootEl.setAttribute("data-theme", t);

@@ -1,19 +1,23 @@
 # Flor de Pilchas — Tienda online
 
-Tienda web simple y elegante, con **modo oscuro y modo claro**: catálogo, filtro por categoría, detalle de producto con talles, carrito que se guarda en el navegador y pedido por **Mercado Pago**, **transferencia** o **WhatsApp**. No necesita programar ni instalar nada.
+Tienda web simple y elegante, con **modo oscuro y modo claro**: catálogo, filtro por categoría, detalle de producto con talles, carrito que se guarda en el navegador y pedido por **transferencia**, **link de Mercado Pago** o **WhatsApp**. No necesita programar ni instalar nada.
 
 ---
 
 ## 1. Qué hay en la carpeta
 
-| Archivo / carpeta | Para qué sirve |
+> **Versión plana (sin carpetas).** Todos los archivos están **juntos, en la raíz**, sin ninguna subcarpeta. Está pensada para subirla a GitHub arrastrando los archivos (que no conserva las carpetas). Si agregás archivos nuevos, subilos al mismo lugar, sin carpetas.
+
+| Archivo | Para qué sirve |
 |---|---|
 | `config.js` | **Datos de la tienda**: nombre, WhatsApp, Instagram, Mercado Pago, CBU/alias, envíos. |
 | `products.js` | **Lista de productos** (nombre, precio, talles, fotos…). |
-| `images/` | **Las fotos**. Acá se copian las fotos de la ropa. También están el logo y los íconos (ver "Logo y marca"). |
+| Fotos (`*.jpg`, `*.png`, `*.svg`…) | **Las fotos de la ropa**: se suben junto a estos archivos, en la misma raíz. También están el logo y los íconos (ver "Logo y marca"). |
 | `index.html`, `styles.css`, `app.js`, `shipping.js` | La página en sí y el cálculo de envío. No hace falta tocarlos. |
-| `netlify/`, `api/`, `server/` | Opcional: pago automático con Mercado Pago (ver sección 8). |
-| `tests/` | Pruebas automáticas del cálculo de envío (opcional, se corren con `node tests/shipping.test.js`). |
+
+> **Pago automático con Mercado Pago:** esta versión plana **no lo incluye** (necesita carpetas con funciones de servidor). Si algún día lo querés, usá la versión completa que está en `/tienda-ropa` (ver sección 8). Acá se cobra con transferencia al alias, link de pago de Mercado Pago (opcional) y WhatsApp.
+
+> Los productos y fotos que vienen son **de ejemplo**. Hay que reemplazarlos por los reales.
 
 > Los productos y fotos que vienen son **de ejemplo**. Hay que reemplazarlos por los reales.
 
@@ -21,10 +25,10 @@ Tienda web simple y elegante, con **modo oscuro y modo claro**: catálogo, filtr
 
 ### Logo y marca
 
-- `images/logo.png`: logo completo y circular (1024 px: perchero con flores, "Flor de Pilchas" y aro dorado), con el exterior del círculo transparente para que se funda con el fondo negro. Se usa en alta calidad en la portada.
-- `images/logo-512.png` y `images/logo-192.png`: el mismo logo en versiones livianas (la 512 para la portada, la 192 para el encabezado y el pie de página), así la web carga rápido.
-- `images/favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`: el círculo del logo como ícono de la pestaña del navegador y del celular.
-- `images/og-image.png`: imagen que aparece cuando se comparte el link por WhatsApp o redes. **Cuando publiques la web**, en `index.html` cambiá `images/og-image.png` (aparece 2 veces) por la dirección completa, por ejemplo `https://tudominio.com/images/og-image.png`; si no, algunas apps no la muestran.
+- `logo.png`: logo completo y circular (1024 px: perchero con flores, "Flor de Pilchas" y aro dorado), con el exterior del círculo transparente para que se funda con el fondo negro. Se usa en alta calidad en la portada.
+- `logo-512.png` y `logo-192.png`: el mismo logo en versiones livianas (la 512 para la portada, la 192 para el encabezado y el pie de página), así la web carga rápido.
+- `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`: el círculo del logo como ícono de la pestaña del navegador y del celular.
+- `og-image.png`: imagen que aparece cuando se comparte el link por WhatsApp o redes. **Cuando publiques la web**, en `index.html` cambiá `og-image.png` (aparece 2 veces) por la dirección completa, por ejemplo `https://tudominio.com/og-image.png`; si no, algunas apps no la muestran (necesitan la dirección absoluta).
 - Los colores (negro, dorado y un toque de rosa de la rosa del logo) están al principio de `styles.css`, en dos bloques: el oscuro (`:root`) y el claro (`[data-theme="light"]`). Para cambiar el dorado, modificá `--gold` (y `--gold-fill` para los botones) en cada bloque.
 - Si cambiás el logo: reemplazá `logo.png` (cuadrado, circular, con el exterior transparente o negro), y generá de nuevo `logo-512.png`, `logo-192.png` y los íconos con la misma imagen redimensionada.
 
@@ -68,8 +72,10 @@ Cada vez que cambies un archivo, guardalo y **recargá la página** (tecla F5).
 - Formato `.jpg` o `.webp`. Que cada foto pese menos de 500 KB (si pesan mucho, comprimilas gratis en squoosh.app o tinypng.com).
 - Ponele nombres **simples, sin espacios ni tildes**, en minúsculas. Ej: `remera-blanca-1.jpg`, `remera-blanca-2.jpg`.
 
-### B) Copiar las fotos
-- Copiá las fotos dentro de la carpeta **`images`**.
+### B) Subir las fotos
+- Subí los archivos de las fotos **al mismo lugar donde están `index.html` y `products.js`** (la raíz del repositorio de GitHub, **sin carpetas**). En GitHub: *Add file* → *Upload files* → arrastrá las fotos → *Commit changes*.
+- En `products.js` se escribe **solo el nombre del archivo**, sin carpeta. Ejemplo: `images: ["remera-1.jpg"]` (no `images/remera-1.jpg`).
+- Cuidado de no usar un nombre que ya exista (por ejemplo `logo.png` o `hero.svg`): pisaría ese archivo.
 
 ### C) Agregar el producto
 1. Abrí `products.js`.
@@ -163,7 +169,7 @@ En `products.js` podés agregar `weightGrams: 350` a cada producto (peso en gram
 
 - **Transferencia al alias** (`flor.pilchas.mp`): funciona siempre y por **cualquier monto**. Es la forma más simple de cobrar el total con envío incluido. El cliente manda el comprobante por WhatsApp y vos lo verificás en tu cuenta.
 - **Link de pago de Mercado Pago** (`paymentLink`): un link común tiene un monto **fijo** o lo escribe el cliente. **La tienda no puede cambiarle el monto al link**, así que con esta opción no se cobra el total exacto de forma automática: la tienda le muestra el total (con envío) y le pide que pague **ese monto exacto** (o que transfiera al alias).
-- **Pago automático con tarjeta por el monto exacto** (incluido el envío): solo con la **Opción B** de la sección 8 (Checkout Pro), que necesita tu Access Token de Mercado Pago y publicar la tienda en Netlify o Vercel. En modo `"quote"`, para envíos a domicilio no se usa (primero cotizás); sí sirve para retiro o envío gratis.
+- **Pago automático con tarjeta por el monto exacto** (incluido el envío): **no está en esta versión plana**. Necesita la versión completa que está en `/tienda-ropa` (ver sección 8).
 - Nada de esto confirma el pago solo: lo verificás vos en tu cuenta de Mercado Pago o con el comprobante que te llega por WhatsApp.
 - Si Mercado Pago no está configurado, la tienda simplemente **no muestra** esa opción (quedan transferencia y WhatsApp).
 
@@ -196,7 +202,9 @@ En `products.js` podés agregar `weightGrams: 350` a cada producto (peso en gram
 
 ## 8. Mercado Pago: configuración (explicada con honestidad)
 
-**Para cobrar de verdad hace falta tu propia cuenta de Mercado Pago.** Hay dos formas de conectarlo a la tienda:
+**Para cobrar de verdad hace falta tu propia cuenta de Mercado Pago.** En esta versión plana solo se usa el **link de pago** (Opción A).
+
+> **Nota:** el **pago automático de Mercado Pago (Opción B, por el monto exacto) necesita la versión completa** que está en `/tienda-ropa`, porque usa una función de servidor (carpetas `api/`, `netlify/`, `server/`) que acá no existe. En la versión plana dejá `endpoint: ""` en `config.js` (ya viene así): la opción automática simplemente no se muestra.
 
 ### Opción A — Link de pago (la más fácil, sin programar)
 1. Entrá a la app o web de Mercado Pago con tu cuenta.
@@ -207,37 +215,19 @@ En `products.js` podés agregar `weightGrams: 350` a cada producto (peso en gram
    ```
 **Limitación:** el link no cambia de monto según el pedido ni el envío. La tienda le muestra al cliente el total exacto (con envío) y le pide pagar ese monto, o transferir al alias. **El sistema no verifica el pago:** lo confirmás vos mirando tu cuenta o el comprobante por WhatsApp.
 
-### Opción B — Pago automático (Checkout Pro) — requiere publicar con una función en el servidor
-El cliente paga en Mercado Pago el **total exacto** (prendas + envío, el envío aparece como renglón aparte) y vuelve a la tienda. Una pequeña función crea la "preferencia" de pago de forma segura (el token **nunca** va en la página).
-
-Necesitás:
-1. Un **Access Token de producción**: *mercadopago.com.ar/developers* → **Tus integraciones** → creá una aplicación → **Credenciales de producción** → copiá el **Access Token**. (Es secreto: no lo compartas ni lo pegues en `config.js`.)
-2. Publicar la tienda en **Netlify** o **Vercel** (ambos tienen plan gratuito). Usá "Import from Git" o el CLI (arrastrar la carpeta en Netlify Drop **no** corre funciones).
-3. En el panel del hosting, cargá las variables de entorno:
-   - `MP_ACCESS_TOKEN` = tu Access Token.
-   - `SITE_URL` (opcional) = la dirección de tu tienda, ej. `https://mitienda.netlify.app`.
-4. En `config.js` completá el `endpoint`:
-   - Netlify: `endpoint: "/.netlify/functions/create-preference"`
-   - Vercel: `endpoint: "/api/create-preference"`
-5. Volvé a publicar y probá con una compra real de monto bajo.
-
-Detalles técnicos: la función (`server/create-preference-core.js`) calcula en el servidor los **precios** (desde `products.js`) y el **costo de envío** (desde la misma tabla `shipping` de `config.js`, con el mismo `shipping.js` que usa la página). El navegador solo manda qué prendas, la provincia y el código postal, nunca un monto, así que el cliente no puede alterarlo. Por eso, si cambiás las tarifas, **volvé a publicar**. Si el total que calcula el servidor no coincide con el de la pantalla, la tienda no lo manda a pagar y le avisa. Al aprobarse el pago, Mercado Pago vuelve a la tienda con `?pago=ok`. Si la función falla y hay `paymentLink`, se usa el link como respaldo. Nota: esta versión no incluye *webhooks*: los pagos los ves en tu cuenta de Mercado Pago.
-
-Para comprobar que la página y el servidor calculan lo mismo: `node tests/shipping.test.js` (requiere Node 18 o más; es opcional).
-
 ---
 
 ## 9. Publicar la tienda en internet
 
 Es un sitio estático, se puede subir a cualquier hosting:
-- **Netlify Drop** (netlify.com/drop): arrastrás la carpeta y listo (alcanza para WhatsApp, transferencia y link de pago; **no** corre la función de Mercado Pago automático).
-- **Netlify / Vercel con Git** o CLI: necesario si querés el pago automático (Opción B, sección 8).
-- **GitHub Pages**, **Cloudflare Pages**: también sirven para la versión sin función.
+- **GitHub + Vercel**: subí todos los archivos a la raíz de un repositorio de GitHub (arrastrando; esta versión no tiene carpetas, así que no se pierde nada) y en Vercel importá ese repositorio con *Deploy*, sin cambiar ninguna configuración.
+- **Netlify Drop** (netlify.com/drop): arrastrás la carpeta y listo.
+- **GitHub Pages**, **Cloudflare Pages**: también sirven.
 - Podés conectar tu propio dominio (ej. `mitienda.com.ar`) desde el panel del hosting.
 
 ---
 
 ## 10. Cosas para tener en cuenta
-- Las fotos de ejemplo (`*.svg`) se pueden borrar de `images/` cuando cargues las tuyas.
+- Las fotos de ejemplo (`*.svg`) se pueden borrar (son los `buzo-*`, `camisa-*`, `jean-*`, `pollera-*`, `remera-*`, `vestido-*` y `hero*`: el `hero.svg` y `hero-light.svg` NO, son el fondo de la portada) cuando cargues las tuyas.
 - Si querés cambiar los colores, están al principio de `styles.css` (`--gold` es el dorado, `--bg` el fondo).
 - Recordá la normativa: informar precios finales, datos del vendedor y botón de arrepentimiento (Ley de Defensa del Consumidor). Consultá con tu contador por la facturación.

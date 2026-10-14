@@ -17,7 +17,7 @@
   --gold-tint:var(--gold-tint);
   --err:var(--err); --err-text:var(--err-text);
   --placeholder:#5f5b54;
-  --hero-img:url("images/hero.svg");
+  --hero-img:url("hero.svg");
   --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --radius:2px; --ease:cubic-bezier(.2,.7,.2,1);
@@ -37,7 +37,7 @@
   --gold-tint:rgba(169,133,50,.08);
   --err:#b3402e; --err-text:#a8321f;
   --placeholder:#9a9285;
-  --hero-img:url("images/hero-light.svg");
+  --hero-img:url("hero-light.svg");
 }
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:72px}

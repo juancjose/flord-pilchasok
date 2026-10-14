@@ -1,7 +1,0 @@
-{
-  "name": "tienda-ropa",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Tienda de ropa estática con pago por Mercado Pago, transferencia y WhatsApp",
-  "engines": { "node": ">=18" }
-}

@@ -1,7 +1,6 @@
 /*
  * CÁLCULO DE ENVÍO (no hace falta tocar este archivo).
- * Lo usan la página (navegador) y la función de Mercado Pago (servidor),
- * así los dos calculan EXACTAMENTE lo mismo a partir de la tabla "shipping" de config.js.
+ * Lo usa la página (navegador) a partir de la tabla "shipping" de config.js.
  */
 (function (root, factory) {
   var api = factory();

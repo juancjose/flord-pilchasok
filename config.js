@@ -103,10 +103,8 @@ window.CONFIG = {
     // Dejalo vacío ("") si no tenés uno todavía.
     paymentLink: "",
 
-    // OPCIÓN B (automática, avanzada): dirección de la función serverless
-    // incluida en este proyecto. Con Netlify: "/.netlify/functions/create-preference"
-    // Con Vercel: "/api/create-preference". Requiere configurar MP_ACCESS_TOKEN.
-    // Si está completa, tiene prioridad sobre el link de pago.
+    // Pago automático (función de servidor): NO está incluido en esta versión plana (sin carpetas).
+    // Necesita la versión completa de /tienda-ropa. Dejalo vacío ("") para que esa opción no se muestre.
     endpoint: ""
   },
 
