@@ -27,14 +27,14 @@ window.PRODUCTS = [
     name: "Remera de Encaje",
     price: 19999,
     category: "Remeras",
-    sizes: ["S", "M", "L"],
+    sizes: ["Único"],
     description: "Remera manga larga de encaje texturado, entallada y suave. Ideal para usar sola o en capas.",
     images: ["remera-encaje-marron.webp"],
     colors: [
       { name: "Marrón", hex: "#5a3424", images: ["remera-encaje-marron.webp", "remera-encaje-marron-foto.jpg"] },
-      { name: "Negro", hex: "#111111", images: [] },
-      { name: "Beige", hex: "#d9c4a5", images: [] },
-      { name: "Blanco", hex: "#f5f2ec", images: [] }
+      { name: "Negro", hex: "#111111", images: ["remera-encaje-negro.webp"] },
+      { name: "Beige", hex: "#d9c4a5", images: ["remera-encaje-beige.webp"] },
+      { name: "Blanco", hex: "#f5f2ec", images: ["remera-encaje-blanco.webp"] }
     ]
   },
   {
