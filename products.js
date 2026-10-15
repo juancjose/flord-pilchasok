@@ -43,7 +43,7 @@ window.PRODUCTS = [
     name: "Remera de algodón premium",
     price: 18900,
     category: "Remeras",
-    sizes: ["S", "M", "L", "XL"],
+    sizes: ["Único"],
     description: "Remera de algodón peinado de caída suave. Corte relajado, cuello redondo reforzado. Ideal para usar sola o en capas.",
     images: ["remera-1.svg", "remera-2.svg"]
   },
@@ -53,7 +53,7 @@ window.PRODUCTS = [
     name: "Camisa de lino",
     price: 32500,
     category: "Camisas",
-    sizes: ["S", "M", "L"],
+    sizes: ["Único"],
     description: "Camisa liviana de lino con botones de nácar. Fresca, elegante y con ese arrugado natural que la hace única.",
     images: ["camisa-1.svg", "camisa-2.svg"]
   },
@@ -63,7 +63,7 @@ window.PRODUCTS = [
     name: "Jean recto tiro alto",
     price: 41900,
     category: "Pantalones",
-    sizes: ["36", "38", "40", "42", "44"],
+    sizes: ["Único"],
     description: "Jean de denim rígido, calce recto y tiro alto. Cómodo y duradero, combina con todo.",
     images: ["jean-1.svg", "jean-2.svg"]
   },
@@ -73,7 +73,7 @@ window.PRODUCTS = [
     name: "Vestido midi",
     price: 46800,
     category: "Vestidos",
-    sizes: ["S", "M", "L"],
+    sizes: ["Único"],
     description: "Vestido midi de tela fluida con cintura marcada y falda con vuelo. Para el día y para la noche.",
     images: ["vestido-1.svg", "vestido-2.svg"]
   },
@@ -83,7 +83,7 @@ window.PRODUCTS = [
     name: "Buzo de friza con capucha",
     price: 38500,
     category: "Abrigos",
-    sizes: ["S", "M", "L", "XL"],
+    sizes: ["Único"],
     description: "Buzo de friza suave por dentro, capucha amplia y bolsillo canguro. Abrigado sin perder estilo.",
     images: ["buzo-1.svg", "buzo-2.svg"]
   },

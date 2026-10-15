@@ -168,7 +168,7 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .pm{display:grid}
 @media(min-width:760px){.pm{grid-template-columns:1.05fr 1fr}}
 .pm__gallery{background:var(--bg)}
-.pm__gallery>img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.pm__gallery>img,.pm__stage>img{width:100%;aspect-ratio:4/5;object-fit:cover}
 .pm__thumbs{display:flex;gap:.6rem;padding:.8rem}
 .pm__thumbs button{width:62px;aspect-ratio:4/5;padding:0;border:1px solid var(--line);background:var(--surface);opacity:.55;transition:all .3s}
 .pm__thumbs button.is-active,.pm__thumbs button:hover{opacity:1;border-color:var(--gold)}
@@ -320,7 +320,7 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .opts--pay{margin-top:1.5rem}.recap{margin-bottom:.4rem}
 
 /* ---- Colores de producto ---- */
-.card__media,.pm__gallery>img,.pm__thumbs button,.item img{background:radial-gradient(120% 90% at 50% 25%,var(--surface),var(--bg))}
+.card__media,.pm__gallery>img,.pm__stage>img,.pm__thumbs button,.item img{background:radial-gradient(120% 90% at 50% 25%,var(--surface),var(--bg))}
 .card__swatches{display:flex;gap:.35rem;margin:.45rem 0 0}
 .swatch-dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--line);box-shadow:inset 0 0 0 1px rgba(128,128,128,.25)}
 .colors{display:flex;flex-wrap:wrap;gap:.6rem}
@@ -338,3 +338,15 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .cycle-hint{margin:.45rem 0 0;font-size:.7rem;letter-spacing:.08em;color:var(--gold-text,#d4af55);opacity:.75;text-align:center}
 .cycle-hint::before{content:"\21BB";margin-right:.4em}
 .swatch-dot.is-active{outline:1px solid var(--gold,#d4af55);outline-offset:2px}
+
+/* Catálogo: flechas de color y consulta por WhatsApp */
+.pm__stage{position:relative}
+.pm__stage>img{display:block;width:100%}
+.pm__arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(10,10,10,.55);color:var(--gold-text,#d4af55);border:1px solid var(--gold,#d4af55);cursor:pointer;backdrop-filter:blur(4px);transition:background .25s,color .25s;z-index:2}
+.pm__arrow:hover,.pm__arrow:focus-visible{background:var(--gold-fill,#d4af55);color:var(--on-gold,#0a0a0a)}
+.pm__arrow--prev{left:.6rem}.pm__arrow--next{right:.6rem}
+.pm__arrow[hidden]{display:none}
+[data-theme="light"] .pm__arrow{background:rgba(250,247,242,.8)}
+.talle-unico{margin:.2rem 0 1rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.btn--wa{display:flex;align-items:center;justify-content:center;gap:.55rem;text-decoration:none}
+#footAlias strong{color:var(--gold-text)}

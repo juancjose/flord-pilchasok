@@ -8,7 +8,7 @@ window.CONFIG = {
   storeName: "Flor de Pilchas",              // <- Nombre de la marca
   tagline: "Ropa seleccionada, hecha para acompañarte todos los días.",
   heroTitle: "Estilo simple, detalles que importan",
-  heroText: "Colección de temporada. Envíos a todo el país.",
+  heroText: "Colección de temporada. Consultá stock y envíos por WhatsApp.",
   about: "Somos un emprendimiento familiar de Argentina. Elegimos cada prenda con cariño y la enviamos con atención personalizada.",
 
   // --- Tema (claro / oscuro) ---
