@@ -38,6 +38,21 @@ window.PRODUCTS = [
     ]
   },
   {
+    id: "remera-boxing",
+    weightGrams: 220,
+    name: "Remera Boxing de Algodón",
+    price: 17999,
+    category: "Remeras",
+    sizes: ["Único"],
+    description: "Remera oversized de algodón, corte boxy con hombros caídos. Cómoda, versátil y con caída relajada.",
+    images: ["remera-boxing-marron-front.webp"],
+    colors: [
+      { name: "Marrón", hex: "#6b3f2e", images: ["remera-boxing-marron-front.webp", "remera-boxing-marron-back.webp"] },
+      { name: "Blanco", hex: "#f4f1ea", images: ["remera-boxing-blanco-front.webp", "remera-boxing-blanco-back.webp"] },
+      { name: "Negro", hex: "#111111", images: ["remera-boxing-negro-front.webp", "remera-boxing-negro-tq.webp"] }
+    ]
+  },
+  {
     id: "remera-algodon",
     weightGrams: 200,
     name: "Remera de algodón premium",
