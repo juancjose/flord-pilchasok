@@ -31,10 +31,10 @@ window.PRODUCTS = [
     description: "Remera manga larga de encaje texturado, entallada y suave. Ideal para usar sola o en capas.",
     images: ["remera-encaje-marron.webp"],
     colors: [
-      { name: "Marrón", hex: "#5a3424", images: ["remera-encaje-marron.webp", "remera-encaje-marron-foto.jpg"] },
+      { name: "Marrón", hex: "#8a4a38", images: ["remera-encaje-marron.webp"] },
       { name: "Negro", hex: "#111111", images: ["remera-encaje-negro.webp"] },
-      { name: "Beige", hex: "#d9c4a5", images: ["remera-encaje-beige.webp"] },
-      { name: "Blanco", hex: "#f5f2ec", images: ["remera-encaje-blanco.webp"] }
+      { name: "Beige", hex: "#e0a890", images: ["remera-encaje-beige.webp"] },
+      { name: "Blanco", hex: "#f2eee6", images: ["remera-encaje-blanco.webp"] }
     ]
   },
   {
