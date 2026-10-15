@@ -53,6 +53,22 @@ window.PRODUCTS = [
     ]
   },
   {
+    id: "remera-boxing-lunares",
+    weightGrams: 220,
+    name: "Remera Boxing con Lunares",
+    price: 17999,
+    category: "Remeras",
+    sizes: ["Único"],
+    description: "Remera oversized de algodón con lunares, corte boxy. Divertida, cómoda y con caída relajada.",
+    images: ["remera-boxing-lunares-blanca-front.webp"],
+    colors: [
+      { name: "Blanca", hex: "#f5f2ec", images: ["remera-boxing-lunares-blanca-front.webp", "remera-boxing-lunares-blanca-back.webp"] },
+      { name: "Negra", hex: "#111111", images: ["remera-boxing-lunares-negra-front.webp", "remera-boxing-lunares-negra-back.webp"] },
+      { name: "Marrón", hex: "#5c3a2a", images: ["remera-boxing-lunares-marron-front.webp"] },
+      { name: "Beige", hex: "#e8d5b5", images: ["remera-boxing-lunares-beige-front.webp"] }
+    ]
+  },
+  {
     id: "remera-algodon",
     weightGrams: 200,
     name: "Remera de algodón premium",
