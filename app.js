@@ -135,10 +135,10 @@
     $("footCity").textContent = CFG.city || "";
     $("footHours").textContent = CFG.hours || "";
     $("footCopy").textContent = "© " + new Date().getFullYear() + " " + name + ". Todos los derechos reservados.";
-    $("footWhats").href = whatsUrl(); $("footWhats").querySelector("span").textContent = (CFG.whatsappDisplay || ("+" + digits(CFG.whatsappNumber)));
+    $("footWhats").href = whatsUrl(); $("footWhats").setAttribute("aria-label", "WhatsApp " + (CFG.whatsappDisplay || ""));
     $("whatsFab").href = whatsUrl("Hola! Quería consultar por una prenda.");
     var ig = String(CFG.instagram || "").replace(/^@/, "");
-    $("footInsta").href = CFG.instagramUrl || ("https://www.instagram.com/" + ig + "/"); $("footInsta").querySelector("span").textContent = "@" + ig;
+    $("footInsta").href = CFG.instagramUrl || ("https://www.instagram.com/" + ig + "/"); $("footInsta").setAttribute("aria-label", "Instagram @" + ig);
     $("topbar").textContent = "Envíos a todo el país · consultá stock por WhatsApp";
   }
 

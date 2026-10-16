@@ -350,3 +350,12 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .talle-unico{margin:.2rem 0 1rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .btn--wa{display:flex;align-items:center;justify-content:center;gap:.55rem;text-decoration:none}
 #footAlias strong{color:var(--gold-text)}
+
+/* Pie: logo centrado e íconos sociales */
+.footer__brand{justify-content:center}
+.footer__inner>div:first-child{text-align:center}
+.footer__social{display:flex;gap:.9rem}
+.footer .social{width:44px;height:44px;justify-content:center;border:1px solid var(--line);border-radius:50%;transition:border-color .3s}
+.footer .social:hover{border-color:var(--gold)}
+@media(max-width:759px){.footer__inner{text-align:center}.footer__social{justify-content:center}}
+@media(min-width:760px){.footer__inner{grid-template-columns:1fr 1.3fr;column-gap:4rem;row-gap:2.5rem}.footer__inner>div:first-child{grid-column:1/-1}}
