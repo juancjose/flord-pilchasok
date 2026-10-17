@@ -102,26 +102,19 @@
   </main>
 
   <footer class="footer" id="contacto">
-    <div class="container footer__inner">
-      <div>
-        <div class="footer__brand"><img class="js-logo" src="logo-192.png" width="96" height="96" alt="Logo" loading="lazy"><p class="brand brand--footer" id="footBrandName"></p></div>
-        <p class="muted" id="footCity"></p>
+    <div class="footer__inner">
+      <div class="footer__brand"><img class="js-logo" src="logo-192.png" width="96" height="96" alt="Logo" loading="lazy"><p class="brand brand--footer" id="footBrandName"></p></div>
+      <p class="footer__city" id="footCity"></p>
+      <div class="footer__social">
+        <a id="footWhats" class="social" title="WhatsApp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.09 3.19 5.06 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 2C6.5 2 2 6.5 2 12.04c0 1.77.46 3.5 1.34 5.02L2 22l5.06-1.33a10 10 0 0 0 4.98 1.27C17.58 21.94 22 17.5 22 12.04 22 6.5 17.58 2 12.04 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31a8.17 8.17 0 0 1-1.26-4.4c0-4.53 3.7-8.22 8.25-8.22 4.54 0 8.23 3.69 8.23 8.22 0 4.54-3.69 8.16-8.34 8.16z"/></svg></a>
+        <a id="footInsta" class="social" title="Instagram" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
       </div>
-      <div>
-        <h3>Contacto</h3>
-        <ul class="footer__list">
-          <li class="footer__social"><a id="footWhats" class="social" title="WhatsApp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.09 3.19 5.06 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 2C6.5 2 2 6.5 2 12.04c0 1.77.46 3.5 1.34 5.02L2 22l5.06-1.33a10 10 0 0 0 4.98 1.27C17.58 21.94 22 17.5 22 12.04 22 6.5 17.58 2 12.04 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31a8.17 8.17 0 0 1-1.26-4.4c0-4.53 3.7-8.22 8.25-8.22 4.54 0 8.23 3.69 8.23 8.22 0 4.54-3.69 8.16-8.34 8.16z"/></svg></a>
-          <a id="footInsta" class="social" title="Instagram" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
-          <li class="muted" id="footHours"></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Envíos y pagos</h3>
-        <p class="muted" id="footShip"></p>
-        <p class="muted" id="footAlias"></p>
-      </div>
+      <p class="footer__hours" id="footHours"></p>
+      <hr class="footer__rule" aria-hidden="true">
+      <p class="footer__ship" id="footShip"></p>
+      <p class="footer__alias" id="footAlias"></p>
     </div>
-    <div class="container footer__bottom"><span id="footCopy"></span></div>
+    <div class="footer__bottom"><span id="footCopy"></span></div>
   </footer>
 
   <a class="whats-fab" id="whatsFab" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">

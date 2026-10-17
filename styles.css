@@ -141,18 +141,8 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 @media(min-width:760px){.perks{grid-template-columns:repeat(3,1fr)}}
 
 /* Footer */
-.footer{padding-top:5rem}
-.footer__inner{display:grid;gap:3rem;padding-bottom:4rem}
-@media(min-width:760px){.footer__inner{grid-template-columns:1.2fr 1fr 1.3fr}}
-.footer h3{font-family:var(--sans);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-text);font-weight:500;margin-bottom:1.2rem}
-.footer__brand{display:flex;align-items:center;gap:1rem}
-.footer__brand{margin-bottom:1rem}
 .brand--footer{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.footer__brand img{width:96px;height:96px;aspect-ratio:1/1;border-radius:50%;flex:none;object-fit:contain}
-.footer__list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
 .footer a:hover{color:var(--rose)}
-.footer p{margin:.3rem 0}
-.footer__bottom{border-top:1px solid var(--line);padding-block:1.6rem;color:var(--muted);font-size:.8rem}
 .whats-fab{position:fixed;right:1.1rem;bottom:1.1rem;z-index:25;width:52px;height:52px;border-radius:50%;background:var(--gold-fill);color:var(--on-gold);display:grid;place-items:center;box-shadow:0 6px 24px var(--shadow);transition:transform .3s}
 .whats-fab:hover{transform:scale(1.07)}
 
@@ -254,9 +244,6 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-.footer .social{display:inline-flex;align-items:center;gap:.7rem}
-.footer .social .ico{width:22px;height:22px;flex:none;color:var(--gold-text)}
-.footer .social:hover .ico{color:var(--rose)}
 
 /* ---- Checkout por pasos ---- */
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -352,13 +339,6 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 #footAlias strong{color:var(--gold-text)}
 
 /* Pie: logo centrado e íconos sociales */
-.footer__brand{justify-content:center}
-.footer__inner>div:first-child{text-align:center}
-.footer__social{display:flex;gap:.9rem}
-.footer .social{width:44px;height:44px;justify-content:center;border:1px solid var(--line);border-radius:50%;transition:border-color .3s}
-.footer .social:hover{border-color:var(--gold)}
-@media(max-width:759px){.footer__inner{text-align:center}.footer__social{justify-content:center}}
-@media(min-width:760px){.footer__inner{grid-template-columns:1fr 1.3fr;column-gap:4rem;row-gap:2.5rem}.footer__inner>div:first-child{grid-column:1/-1}}
 
 /* Agotado */
 .pm__soldout{display:inline-block;margin:.2rem 0 .8rem;padding:.3rem .7rem;border:1px solid var(--rose);color:var(--rose);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
@@ -370,3 +350,22 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .admin-pill:hover{background:var(--gold-soft);color:var(--on-gold)}
 .admin-edit{margin-top:.7rem}
 @media(max-width:420px){.admin-pill{left:.8rem;bottom:1.15rem;padding:.7rem 1rem;font-size:.68rem}}
+
+
+/* Pie de página: una sola columna centrada */
+.footer{padding:4.5rem 1.5rem 0;text-align:center}
+.footer__inner{max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:1rem;padding-bottom:3rem}
+.footer p{margin:0}
+.footer__brand{display:flex;justify-content:center;margin-bottom:.25rem}
+.footer__brand img{width:96px;height:96px;aspect-ratio:1/1;border-radius:50%;flex:none;object-fit:contain}
+.footer__city{color:var(--text);font-family:var(--serif);font-size:1.25rem;letter-spacing:.02em}
+.footer__social{display:flex;justify-content:center;gap:.9rem}
+.footer .social{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;transition:border-color .3s,color .3s}
+.footer .social .ico{width:21px;height:21px;flex:none;color:var(--gold-text);transition:color .3s}
+.footer .social:hover{border-color:var(--gold)}
+.footer .social:hover .ico{color:var(--rose)}
+.footer__hours,.footer__ship,.footer__alias{color:var(--muted);font-size:.88rem;line-height:1.6;text-wrap:balance}
+.footer__rule{width:56px;height:1px;border:0;margin:.6rem auto;background:var(--gold);opacity:.7}
+.footer__alias strong{color:var(--gold-text);font-weight:500;letter-spacing:.02em}
+.footer__bottom{border-top:1px solid var(--line);margin:0 -1.5rem;padding:1.5rem 1.5rem;color:var(--muted);font-size:.78rem;text-align:center}
+@media(max-width:759px){.footer{padding-top:3.5rem}.footer__ship .part{display:block}.footer__ship .dot{display:none}.footer__bottom{padding-bottom:6rem}}

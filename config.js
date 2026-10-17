@@ -35,6 +35,7 @@ window.CONFIG = {
   hours: "Lunes a viernes de 10 a 18 hs",
 
   // --- Envíos ---
+  footerShipping: "Envíos a todo el país por Correo Argentino / Andreani · Retiro sin cargo",   // línea corta del pie de página
   shippingNote: "Envíos a todo el país por Correo Argentino / Andreani. El costo se cotiza según el peso y las medidas de tu pedido y te lo confirmamos por WhatsApp. También podés retirar sin cargo.",
 
   // Prefijo del número de pedido (ej: FP-261011-AB3K)

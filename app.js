@@ -154,7 +154,10 @@
     $("heroText").textContent = CFG.heroText || CFG.tagline || "";
     $("aboutText").textContent = CFG.about || "";
     $("perkShip").textContent = "Envíos a todo el país. Te cotizamos el costo por WhatsApp.";
-    $("footShip").textContent = CFG.shippingNote || "";
+    // En compu va en una línea con "·"; en celular cada parte va en su renglón
+    $("footShip").innerHTML = String(CFG.footerShipping || CFG.shippingNote || "").split(" · ").map(function (part) {
+      return '<span class="part">' + esc(part).replace(/Correo Argentino \//g, "Correo\u00a0Argentino\u00a0/") + "</span>";
+    }).join('<span class="dot" aria-hidden="true"> · </span>');
     if (BANK.alias) $("footAlias").innerHTML = "Alias Mercado Pago: <strong>" + esc(BANK.alias) + "</strong>";
     $("pmShipNote").textContent = "Te respondemos por WhatsApp con stock, envío y formas de pago.";
     $("footCity").textContent = CFG.city || "";
