@@ -1,233 +1,170 @@
-# Flor de Pilchas — Tienda online
+# Flor de Pilchas - Guía de la tienda
 
-Tienda web simple y elegante, con **modo oscuro y modo claro**: catálogo, filtro por categoría, detalle de producto con talles, carrito que se guarda en el navegador y pedido por **transferencia**, **link de Mercado Pago** o **WhatsApp**. No necesita programar ni instalar nada.
+La tienda es un **catálogo**: el cliente mira las prendas, elige el color y toca **"Consultá stock con Nancy"**, que abre WhatsApp con un mensaje ya escrito. No hay carrito ni pago dentro de la web: el stock, el envío y el cobro se arreglan por WhatsApp.
+
+Dirección: https://flord-pilchasok.vercel.app
 
 ---
 
-## 1. Qué hay en la carpeta
+## 1. Qué hay en el repositorio
 
-> **Versión plana (sin carpetas).** Todos los archivos están **juntos, en la raíz**, sin ninguna subcarpeta. Está pensada para subirla a GitHub arrastrando los archivos (que no conserva las carpetas). Si agregás archivos nuevos, subilos al mismo lugar, sin carpetas.
+Todos los archivos están **juntos, en la raíz**, sin carpetas. Si agregás fotos nuevas, subilas al mismo lugar.
 
 | Archivo | Para qué sirve |
 |---|---|
-| `config.js` | **Datos de la tienda**: nombre, WhatsApp, Instagram, Mercado Pago, CBU/alias, envíos. |
-| `products.js` | **Lista de productos** (nombre, precio, talles, fotos…). |
-| Fotos (`*.jpg`, `*.png`, `*.svg`…) | **Las fotos de la ropa**: se suben junto a estos archivos, en la misma raíz. También están el logo y los íconos (ver "Logo y marca"). |
-| `index.html`, `styles.css`, `app.js`, `shipping.js` | La página en sí y el cálculo de envío. No hace falta tocarlos. |
+| `products.js` | **Lista de productos**: nombre, precio, talles, colores y fotos. Es el archivo que más vas a tocar. |
+| `config.js` | **Datos de la tienda**: nombre, textos de la portada, WhatsApp, Instagram, alias y tema (oscuro o claro). |
+| Fotos (`*.webp`, `*.jpg`) | Las fotos de la ropa. |
+| `logo*.png`, `favicon*`, `apple-touch-icon.png`, `og-image.png` | Logo, íconos y la imagen que aparece al compartir el link. |
+| `index.html`, `styles.css`, `app.js` | La página en sí. No hace falta tocarlos. |
+| `shipping.js` | Quedó de una versión anterior con carrito. La tienda actual no lo usa. |
 
-> **Pago automático con Mercado Pago:** esta versión plana **no lo incluye** (necesita carpetas con funciones de servidor). Si algún día lo querés, usá la versión completa que está en `/tienda-ropa` (ver sección 8). Acá se cobra con transferencia al alias, link de pago de Mercado Pago (opcional) y WhatsApp.
-
-> Los productos y fotos que vienen son **de ejemplo**. Hay que reemplazarlos por los reales.
-
-> Los productos y fotos que vienen son **de ejemplo**. Hay que reemplazarlos por los reales.
+Cada vez que guardás un cambio en GitHub (*Commit changes*), Vercel publica la tienda sola en uno o dos minutos.
 
 ---
 
-### Logo y marca
+## 2. Cómo ve la tienda el cliente
 
-- `logo.png`: logo completo y circular (1024 px: perchero con flores, "Flor de Pilchas" y aro dorado), con el exterior del círculo transparente para que se funda con el fondo negro. Se usa en alta calidad en la portada.
-- `logo-512.png` y `logo-192.png`: el mismo logo en versiones livianas (la 512 para la portada, la 192 para el encabezado y el pie de página), así la web carga rápido.
-- `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`: el círculo del logo como ícono de la pestaña del navegador y del celular.
-- `og-image.png`: imagen que aparece cuando se comparte el link por WhatsApp o redes. **Cuando publiques la web**, en `index.html` cambiá `og-image.png` (aparece 2 veces) por la dirección completa, por ejemplo `https://tudominio.com/og-image.png`; si no, algunas apps no la muestran (necesitan la dirección absoluta).
-- Los colores (negro, dorado y un toque de rosa de la rosa del logo) están al principio de `styles.css`, en dos bloques: el oscuro (`:root`) y el claro (`[data-theme="light"]`). Para cambiar el dorado, modificá `--gold` (y `--gold-fill` para los botones) en cada bloque.
-- Si cambiás el logo: reemplazá `logo.png` (cuadrado, circular, con el exterior transparente o negro), y generá de nuevo `logo-512.png`, `logo-192.png` y los íconos con la misma imagen redimensionada.
+1. Ve las prendas en la portada. Si hay más de una categoría (ej. Remeras, Vestidos), arriba aparecen los filtros.
+2. Toca una prenda y se abre en grande, con precio, descripción, talle y colores.
+3. Si la prenda tiene varios colores, puede tocar un color, tocar la foto o usar las flechitas de los costados para pasar al siguiente color.
+4. Toca **"Consultá stock con Nancy"** y se abre WhatsApp con un mensaje así:
 
----
+> Hola Nancy! Quería consultar stock de: REMERA DE ENCAJE - Color: Negro - Talle Único - $ 19.999
+> (y el link directo a esa prenda en ese color)
 
-## 2. Cómo ver la tienda en tu computadora
+El link del mensaje abre la tienda directamente en esa prenda y ese color, así sabés exactamente de qué te habla.
 
-- Lo más simple: hacé doble clic en `index.html` y se abre en el navegador.
-- Si algo no se ve bien así, abrí una terminal en esta carpeta y ejecutá `python -m http.server 8000`, y entrá a `http://localhost:8000`.
-
-Cada vez que cambies un archivo, guardalo y **recargá la página** (tecla F5).
-
-### Modo oscuro / modo claro
-
-- En el encabezado, al lado del carrito, hay un botón con un **sol / luna** para cambiar entre modo oscuro (negro y dorado) y modo claro (marfil y dorado). La elección queda guardada en el navegador de cada cliente.
-- Con qué modo arranca la tienda la primera vez se cambia en `config.js`, en `defaultTheme`: `"dark"` (oscuro, el que viene), `"light"` (claro) o `"auto"` (el que tenga el celular o la compu del cliente).
-- Las fotos de ejemplo tienen versión clara (`*-light.svg`). Tus fotos reales (JPG/PNG) se ven igual en los dos modos. El logo tiene fondo negro propio, por eso se ve bien en ambos.
+También hay un botón flotante de WhatsApp para consultas generales, y en el pie de página los íconos de WhatsApp e Instagram.
 
 ---
 
-## 3. Paso a paso: cambiar los datos de la tienda
-
-1. Abrí `config.js` con el **Bloc de notas** (o con un editor como VS Code).
-2. Cambiá solo lo que está **entre comillas**:
-   - `storeName`: nombre de la tienda.
-   - `whatsappNumber`: número con código de país, **sin +, sin espacios, sin 15**. Ej: `5491123456789`.
-   - `instagram` e `instagramUrl`: ya están cargados (`@flordpilchas` y https://www.instagram.com/flordpilchas/).
-   - `email`, `city`, `hours`, `shippingNote`.
-   - `shipping`: cómo se cobra el envío (ver sección 5).
-   - `defaultTheme`: `"dark"`, `"light"` o `"auto"` (ver "Modo oscuro / modo claro").
-   - `requireEmail`: `true` = el email es obligatorio (para mandar el comprobante); `false` = opcional.
-   - `bankTransfer`: titular, banco, **CBU** y **alias**.
-3. Guardá y recargá la página.
-
----
-
-## 4. Paso a paso: cargar tus fotos y productos
+## 3. Agregar un producto
 
 ### A) Preparar las fotos
-- Sacá las fotos con buena luz y fondo liso. Mejor si son **verticales** (proporción 4:5, como 800 × 1000 px).
-- Formato `.jpg` o `.webp`. Que cada foto pese menos de 500 KB (si pesan mucho, comprimilas gratis en squoosh.app o tinypng.com).
-- Ponele nombres **simples, sin espacios ni tildes**, en minúsculas. Ej: `remera-blanca-1.jpg`, `remera-blanca-2.jpg`.
+- Buena luz y fondo liso. Mejor **verticales** (como 800 × 1000 px).
+- Formato `.webp` o `.jpg`, de menos de 500 KB cada una (se pueden comprimir gratis en squoosh.app).
+- Nombres **simples, en minúsculas, sin espacios ni tildes**. Ej: `remera-encaje-negro.webp`.
+- Si la prenda viene en varios colores, una foto (o más) **por color**.
 
 ### B) Subir las fotos
-- Subí los archivos de las fotos **al mismo lugar donde están `index.html` y `products.js`** (la raíz del repositorio de GitHub, **sin carpetas**). En GitHub: *Add file* → *Upload files* → arrastrá las fotos → *Commit changes*.
-- En `products.js` se escribe **solo el nombre del archivo**, sin carpeta. Ejemplo: `images: ["remera-1.jpg"]` (no `images/remera-1.jpg`).
-- Cuidado de no usar un nombre que ya exista (por ejemplo `logo.png` o `hero.svg`): pisaría ese archivo.
+En GitHub: *Add file* → *Upload files* → arrastrá las fotos → *Commit changes*. Van a la raíz, al lado de `products.js`. No uses un nombre que ya exista, porque lo pisarías.
 
-### C) Agregar el producto
-1. Abrí `products.js`.
-2. Copiá un bloque completo, desde `{` hasta `}`, así:
+### C) Cargar el producto en `products.js`
+1. Abrí `products.js` y tocá el lápiz (*Edit*).
+2. Copiá un bloque completo de un producto parecido, desde `{` hasta `}`, y pegalo después del último (entre bloque y bloque va una **coma**).
+3. Cambiá los datos.
+
+Producto con un solo color o sin colores:
 
 ```js
   {
-    id: "remera-blanca",
-    name: "Remera blanca básica",
-    price: 15900,
-    category: "Remeras",
-    sizes: ["S", "M", "L"],
-    description: "Remera de algodón, corte clásico.",
-    images: ["remera-blanca-1.jpg", "remera-blanca-2.jpg"]
+    id: "vestido-india-largo",
+    name: "Vestido de la India Largo",
+    price: 45000,
+    category: "Vestidos",
+    sizes: ["L/XL"],
+    description: "Vestido largo con estampa ikat.",
+    images: ["vestido-india-largo.webp"]
   },
 ```
 
-3. Pegalo **después del último producto** (acordate de que entre un bloque y otro va una **coma**).
-4. Cambiá los datos:
-   - `id`: nombre corto **único**, sin espacios (no se puede repetir).
-   - `name`: nombre que ve el cliente.
-   - `price`: precio en pesos, **solo números** (sin `$` ni puntos). Ej: `15900`.
-   - `category`: categoría. El filtro de arriba se arma solo con las categorías que uses.
-   - `sizes`: talles disponibles. Para talle único: `["Único"]`.
-   - `description`: descripción corta.
-   - `images`: nombres de las fotos que copiaste. **La primera es la principal.**
-   - Si no hay stock, agregá una línea `soldOut: true,`.
-   - `weightGrams` (opcional): peso en gramos, solo informativo para el mensaje de WhatsApp (ver sección 5).
-5. Guardá y recargá.
+Producto con varios colores (cada color con sus fotos):
 
-### D) Sacar un producto
-Borrá el bloque `{ ... }` completo (con su coma) o dejalo y agregá `soldOut: true`.
+```js
+  {
+    id: "remera-encaje",
+    name: "Remera de Encaje",
+    price: 19999,
+    category: "Remeras",
+    sizes: ["Único"],
+    description: "Remera manga larga de encaje.",
+    images: ["remera-encaje-marron.webp"],
+    colors: [
+      { name: "Marrón", hex: "#8a4a38", images: ["remera-encaje-marron.webp"] },
+      { name: "Negro",  hex: "#111111", images: ["remera-encaje-negro.webp"] }
+    ]
+  },
+```
+
+Qué es cada cosa:
+- `id`: nombre corto **único**, sin espacios.
+- `name`: el nombre que ve el cliente.
+- `price`: precio en pesos, **solo números** (sin `$` ni puntos). Ej: `45000`.
+- `category`: categoría. Los filtros se arman solos.
+- `sizes`: talles. Talle único: `["Único"]`. Otros: `["L/XL"]` o `["S", "M", "L"]`. Se muestran en la ficha y en el mensaje de WhatsApp.
+- `description`: descripción corta.
+- `images`: la foto principal (la que se ve en la portada).
+- `colors` (opcional): cada color con su nombre, el tono del circulito (`hex`) y sus fotos. Si un color no tiene foto, se muestra otra como ilustrativa con un aviso.
+- `soldOut: true` (opcional): muestra el cartel **Agotado**.
+- `weightGrams` (opcional): peso aproximado en gramos. Hoy no se muestra en la tienda; sirve solo como dato para vos.
+
+4. Abajo, *Commit changes*.
+
+### D) Sacar un producto o marcarlo agotado
+Borrá el bloque `{ ... }` completo (con su coma), o dejalo y agregá `soldOut: true,`.
+
+### E) Cambiar un precio
+Buscá el producto en `products.js`, cambiá el número de `price` y guardá.
 
 ### Si algo deja de funcionar
-Casi siempre es una **coma** o una **comilla** que falta o sobra en `products.js` o `config.js`. Revisá que cada línea termine con coma (menos la última de cada bloque) y que los textos estén entre comillas `" "`.
+Casi siempre es una **coma** o una **comilla** de más o de menos en `products.js` o `config.js`. Cada línea dentro de un bloque termina con coma (menos la última), y los textos van entre comillas `" "`. Si no lo encontrás, en GitHub podés volver a la versión anterior del archivo desde *History*.
 
 ---
 
-## 5. Envíos: cómo se calcula el costo
+## 4. Datos de la tienda (`config.js`)
 
-En `config.js`, dentro de `shipping`, hay **dos modos**. Se elige con `mode`:
+Cambiá solo lo que está **entre comillas**:
+- `storeName`, `heroTitle`, `heroText`, `about`: nombre y textos de la portada.
+- `whatsappNumber`: número con código de país, **sin +, sin espacios, sin 15**. Ej: `5491123456789`. A este número llegan las consultas.
+- `instagram` e `instagramUrl`: `@flordpilchas`.
+- `shippingNote`: el texto sobre envíos del pie de página.
+- `bankTransfer.alias`: el alias de Mercado Pago que se muestra en el pie (`flor.pilchas.mp`).
+- `defaultTheme`: con qué modo arranca la tienda: `"dark"` (oscuro, el que viene), `"light"` (claro) o `"auto"`. El cliente lo puede cambiar con el botón sol/luna del encabezado.
 
-### Modo `"quote"` — envío a cotizar (es el que viene configurado)
-Pensado para cuando **vos pesás y medís cada paquete** y le pasás el costo real a cada cliente.
-
-- El cliente carga sus datos y su dirección (provincia, localidad, código postal), elige **envío a domicilio** o **retiro**, y la tienda le muestra **"Envío: a cotizar"** junto con el subtotal.
-- Al confirmar, el pedido te llega **por WhatsApp**, ya escrito con todo: prendas, talles, cantidades, peso aproximado (si cargaste `weightGrams`, ver abajo), datos del cliente, dirección y la leyenda **"Envío: A COTIZAR"**.
-- **En este modo no se cobra nada antes de la cotización.** Vos le confirmás el costo y el total y recién ahí el cliente paga (te dejamos mensajes listos más abajo).
-- **Retiro** = envío $0, y el cliente puede pagar enseguida (Mercado Pago, transferencia o WhatsApp).
-- Si usás `freeShippingFrom` (envío gratis) y el cliente llega al monto, el envío queda en $0 y también puede pagar enseguida.
-- Opcional: `showEstimate: true` le muestra al cliente un precio **orientativo** (el de la zona, de la tabla de abajo) aclarando que el valor final se confirma por WhatsApp. No se suma al total.
-
-### Modo `"zones"` — precio automático por zona
-Poné `mode: "zones"` y la tienda calcula sola el envío según la provincia que elija el cliente, lo suma al total, lo incluye en el mensaje de WhatsApp, en el monto de la transferencia y en Mercado Pago, y el cliente puede pagar en el momento.
-
-### Precios de las zonas (para el modo `"zones"`, o como orientativo)
-> ⚠️ **Los precios que vienen cargados son DE EJEMPLO.** Cambialos por lo que realmente cobra el correo antes de usar el modo `"zones"` o `showEstimate`.
-
-| Zona | Incluye | Precio de ejemplo | Plazo de ejemplo |
-|---|---|---|---|
-| `zona1` | CABA y GBA (en Buenos Aires: códigos postales 1600 a 1899) | $4.500 | 2-4 días hábiles |
-| `zona2` | Resto de Buenos Aires, Córdoba, Santa Fe, Entre Ríos, La Pampa | $6.500 | 3-5 días hábiles |
-| `zona3` | Todo el resto del país | $8.500 | 5-8 días hábiles |
-
-Cómo editarlo en `config.js`:
-- **Cambiar un precio:** buscá la zona (`zona1`, `zona2`, `zona3`) y cambiá el número de `price` (sin puntos ni `$`). El plazo es el texto de `eta` (dejalo `""` si no querés mostrarlo).
-- **Mover una provincia de zona:** en la lista `provinces` de cada zona, agregá o sacá el nombre (entre comillas, separados por coma). `zona3` es "el resto": no hace falta listar sus provincias.
-- **Envío gratis:** `freeShippingFrom: 80000` = gratis desde $80.000. Con `0` no hay envío gratis. Se avisa en la barra de arriba, en el carrito y en el resumen.
-- **Precio especial por código postal:** en `postalOverrides`, sacale las `//` al ejemplo y editalo: `{ postalCodes: ["1900","1901"], name: "La Plata", price: 5500, eta: "2-3 días hábiles" }`. Pisa el precio de la zona.
-- **Retiro:** en `pickup` poné la dirección (`address`) y el horario (`hours`) de tu punto de entrega. Con `enabled: false` se oculta la opción de retiro.
-
-### Peso de las prendas (opcional)
-En `products.js` podés agregar `weightGrams: 350` a cada producto (peso en gramos). Es **solo informativo**: aparece en el mensaje de WhatsApp (por prenda y el total aproximado) para que pesar y cotizar te lleve menos tiempo. Los valores que vienen son de ejemplo.
+El resto de `config.js` (zonas de envío, Mercado Pago, número de pedido) quedó de la versión con carrito y la tienda actual no lo usa.
 
 ---
 
-## 6. Cómo funciona la compra
+## 5. Cómo se arregla una venta por WhatsApp
 
-1. El cliente elige una prenda y un talle y la agrega al carrito (queda guardado aunque cierre la página).
-2. Toca **Iniciar compra** y completa 3 pasos:
-   - **Datos:** nombre y apellido, teléfono/WhatsApp, email (para el comprobante) y DNI (opcional). Si vuelve a comprar, sus datos ya están cargados (se guardan solo en su dispositivo y puede borrarlos con "Borrar mis datos").
-   - **Entrega:** envío a domicilio (provincia, localidad, código postal, calle y número, piso/depto, notas) o retiro. El costo se ve al instante.
-   - **Resumen y pago:** subtotal, envío y total, y cómo pagar (si el envío ya está definido).
-3. Al confirmar ve la pantalla **"Pedido confirmado · siguiente paso"** con su **número de pedido** (ej. `FP-261011-AB3K`), el total y las instrucciones. Siempre tiene el botón **"Enviar comprobante / pedido por WhatsApp"** con todo el pedido escrito.
+1. Te llega el mensaje con la prenda, el color, el talle, el precio y el link.
+2. Confirmás si hay stock.
+3. Si es con envío, pesás y medís el paquete y cotizás el costo en el correo (Correo Argentino / Andreani) hacia su código postal. **Total = prendas + envío.**
+4. Le mandás el total y cómo pagar. Mensaje para copiar y pegar, cambiando lo que está entre `[ ]`:
 
-> **Importante:** esta tienda no tiene base de datos ni panel de administración. Los pedidos te llegan **por WhatsApp**. El stock no se descuenta solo: vos lo controlás y, cuando algo se agota, ponés `soldOut: true`.
-
----
-
-## 7. Cómo cobrar (explicado con honestidad)
-
-- **Transferencia al alias** (`flor.pilchas.mp`): funciona siempre y por **cualquier monto**. Es la forma más simple de cobrar el total con envío incluido. El cliente manda el comprobante por WhatsApp y vos lo verificás en tu cuenta.
-- **Link de pago de Mercado Pago** (`paymentLink`): un link común tiene un monto **fijo** o lo escribe el cliente. **La tienda no puede cambiarle el monto al link**, así que con esta opción no se cobra el total exacto de forma automática: la tienda le muestra el total (con envío) y le pide que pague **ese monto exacto** (o que transfiera al alias).
-- **Pago automático con tarjeta por el monto exacto** (incluido el envío): **no está en esta versión plana**. Necesita la versión completa que está en `/tienda-ropa` (ver sección 8).
-- Nada de esto confirma el pago solo: lo verificás vos en tu cuenta de Mercado Pago o con el comprobante que te llega por WhatsApp.
-- Si Mercado Pago no está configurado, la tienda simplemente **no muestra** esa opción (quedan transferencia y WhatsApp).
-
-### Receta para vos: cómo mandarle al cliente el monto final (modo "quote")
-1. Te llega el pedido por WhatsApp con las prendas y los pesos aproximados.
-2. Pesá y medí el paquete, y fijate el costo en el correo (Correo Argentino / Andreani) hacia su código postal.
-3. Sumá: **total = subtotal de las prendas + costo del envío**.
-4. Copiá y pegá este mensaje, cambiando lo que está entre `[ ]`:
-
-> ¡Hola [Nombre]! Gracias por tu pedido *[FP-XXXXXX-XXXX]* 🌸
-> Ya lo tengo. Te paso el detalle:
-> • Prendas: [$ subtotal]
+> ¡Hola [Nombre]! Gracias por tu consulta 🌸 Sí, tengo [prenda, color y talle].
+> • Prenda: [$ precio]
 > • Envío a [localidad, provincia] (según peso y medidas): [$ envío]
-> *Total a pagar: [$ total]*
+> *Total: [$ total]*
 >
-> Podés pagar de dos formas:
-> 1) Transferencia al alias *flor.pilchas.mp* (Mercado Pago) por [$ total].
-> 2) Con tarjeta o dinero en cuenta en este link de Mercado Pago: [pegar el link]
+> Podés pagar por transferencia al alias *flor.pilchas.mp* (Mercado Pago) o con tarjeta en este link: [pegar el link]
 >
 > Cuando pagues, mandame el comprobante por acá y te preparo el envío. ¡Gracias!
 
-### Receta: crear un link de Mercado Pago por un monto personalizado (desde la app)
-1. Abrí la app de Mercado Pago con tu cuenta.
-2. Tocá **Cobrar** → **Link de pago** (según la versión de la app puede llamarse "Cobrar con link" o "Link de pago").
-3. Escribí el **monto total** (prendas + envío) y una descripción corta (ej. "Pedido FP-261011-AB3K").
-4. Tocá **Crear/Generar link** y **compartilo**: copialo y pegalo en el WhatsApp del cliente (en el mensaje de arriba).
-5. Cuando paga, te llega la notificación en la app. Cada link se crea por pedido: no hay que tocar nada en la tienda.
+5. Verificás el pago en tu cuenta de Mercado Pago o con el comprobante. El stock no se descuenta solo: cuando algo se agota, ponés `soldOut: true`.
+
+### Crear un link de Mercado Pago por el monto exacto (desde la app)
+1. Abrí la app de Mercado Pago.
+2. Tocá **Cobrar** → **Link de pago** (según la versión puede llamarse "Cobrar con link").
+3. Escribí el **total** (prendas + envío) y una descripción corta.
+4. Generá el link y pegalo en el WhatsApp del cliente.
 
 ---
 
-## 8. Mercado Pago: configuración (explicada con honestidad)
+## 6. Logo, colores y vista previa del link
 
-**Para cobrar de verdad hace falta tu propia cuenta de Mercado Pago.** En esta versión plana solo se usa el **link de pago** (Opción A).
-
-> **Nota:** el **pago automático de Mercado Pago (Opción B, por el monto exacto) necesita la versión completa** que está en `/tienda-ropa`, porque usa una función de servidor (carpetas `api/`, `netlify/`, `server/`) que acá no existe. En la versión plana dejá `endpoint: ""` en `config.js` (ya viene así): la opción automática simplemente no se muestra.
-
-### Opción A — Link de pago (la más fácil, sin programar)
-1. Entrá a la app o web de Mercado Pago con tu cuenta.
-2. Andá a **Cobrar → Link de pago** y creá un link.
-3. Pegalo en `config.js`, en `mercadoPago.paymentLink`:
-   ```js
-   paymentLink: "https://mpago.la/xxxxxx",
-   ```
-**Limitación:** el link no cambia de monto según el pedido ni el envío. La tienda le muestra al cliente el total exacto (con envío) y le pide pagar ese monto, o transferir al alias. **El sistema no verifica el pago:** lo confirmás vos mirando tu cuenta o el comprobante por WhatsApp.
+- `logo.png` es el logo en alta calidad (aro dorado y flores). `logo-512.png` y `logo-192.png` son versiones livianas para que la web cargue rápido.
+- `og-image.png` es la imagen que aparece al compartir el link por WhatsApp o redes. Ya está cargada con la dirección completa en `index.html`. Si algún día cambia la dirección de la tienda (por ejemplo, con un dominio propio), hay que actualizarla ahí.
+- Los colores (negro y dorado, y la versión clara en marfil y dorado) están al principio de `styles.css`.
 
 ---
 
-## 9. Publicar la tienda en internet
+## 7. Dominio propio
 
-Es un sitio estático, se puede subir a cualquier hosting:
-- **GitHub + Vercel**: subí todos los archivos a la raíz de un repositorio de GitHub (arrastrando; esta versión no tiene carpetas, así que no se pierde nada) y en Vercel importá ese repositorio con *Deploy*, sin cambiar ninguna configuración.
-- **Netlify Drop** (netlify.com/drop): arrastrás la carpeta y listo.
-- **GitHub Pages**, **Cloudflare Pages**: también sirven.
-- Podés conectar tu propio dominio (ej. `mitienda.com.ar`) desde el panel del hosting.
+Hoy la tienda está en `flord-pilchasok.vercel.app`. Para que quede como `flordpilchas.com.ar` hay que registrar el dominio (en NIC Argentina, nic.ar) y conectarlo desde Vercel, en el proyecto → *Settings* → *Domains*.
 
 ---
 
-## 10. Cosas para tener en cuenta
-- Las fotos de ejemplo (`*.svg`) se pueden borrar (son los `buzo-*`, `camisa-*`, `jean-*`, `pollera-*`, `remera-*`, `vestido-*` y `hero*`: el `hero.svg` y `hero-light.svg` NO, son el fondo de la portada) cuando cargues las tuyas.
-- Si querés cambiar los colores, están al principio de `styles.css` (`--gold` es el dorado, `--bg` el fondo).
-- Recordá la normativa: informar precios finales, datos del vendedor y botón de arrepentimiento (Ley de Defensa del Consumidor). Consultá con tu contador por la facturación.
+## 8. Para tener en cuenta
+- Informá precios finales y los datos del vendedor (Ley de Defensa del Consumidor). Consultá con tu contador por la facturación.
