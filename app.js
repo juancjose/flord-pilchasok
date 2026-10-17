@@ -203,7 +203,8 @@
   function openProduct(id) {
     var p = byId(id); if (!p) return;
     current = p;
-    currentSize = "Único";
+    currentSize = sizeLabel(p);
+    $("pmTalle").textContent = "Talle " + (currentSize === "Único" ? "único" : currentSize);
     var cols = colorsOf(p);
     currentColor = cols.length === 1 ? cols[0].name : (cardColor[id] || shownColor(p, null));
     $("productModal").classList.toggle("pm--multi", cols.length > 1);
@@ -243,9 +244,10 @@
     var b = e.target.closest("[data-color]"); if (!b) return;
     setColor(b.getAttribute("data-color"));
   });
+  function sizeLabel(p) { var s = (p.sizes || []).filter(Boolean); return s.length ? s.join(" / ") : "Único"; }
   function consultText(p, color) {
     var link = location.origin + location.pathname + "#p=" + encodeURIComponent(p.id) + (color ? "&c=" + encodeURIComponent(color) : "");
-    return "Hola Nancy! Quería consultar stock de: " + p.name.toUpperCase() + (color ? " - Color: " + color : "") + " - Talle Único - " + fmt(p.price) + "\n" + link;
+    return "Hola Nancy! Quería consultar stock de: " + p.name.toUpperCase() + (color ? " - Color: " + color : "") + " - Talle " + sizeLabel(p) + " - " + fmt(p.price) + "\n" + link;
   }
   function updateConsult() { if (current) $("pmConsult").href = whatsUrl(consultText(current, currentColor)); }
   // Abrir un producto desde un enlace compartido (#p=id&c=color)

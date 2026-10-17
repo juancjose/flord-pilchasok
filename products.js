@@ -67,5 +67,25 @@ window.PRODUCTS = [
       { name: "Marrón", hex: "#5c3a2a", images: ["remera-boxing-lunares-marron-front.webp"] },
       { name: "Beige", hex: "#e8d5b5", images: ["remera-boxing-lunares-beige-front.webp"] }
     ]
+  },
+  {
+    id: "vestido-india-largo",
+    weightGrams: 400,
+    name: "Vestido de la India Largo",
+    price: 45000,
+    category: "Vestidos",
+    sizes: ["L/XL"],
+    description: "Vestido largo de la India con estampa ikat, mangas con volado y falda amplia en capas. Fresco y con mucha caída.",
+    images: ["vestido-india-largo.webp"]
+  },
+  {
+    id: "vestido-india-corto",
+    weightGrams: 300,
+    name: "Vestido de la India Corto",
+    price: 40000,
+    category: "Vestidos",
+    sizes: ["L/XL"],
+    description: "Vestido corto de la India con estampa de hojas en negro y crudo, borlas en el escote y volado en el ruedo.",
+    images: ["vestido-india-corto.webp"]
   }
 ];
