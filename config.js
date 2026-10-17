@@ -16,6 +16,13 @@ window.CONFIG = {
   // El cliente puede cambiarlo con el botón sol/luna del encabezado y se acuerda de su elección.
   defaultTheme: "dark",
 
+  // --- Panel de administración (Supabase) ---
+  // Cuando estén cargados, la tienda lee los productos desde el panel /admin.
+  // Si están vacíos (o Supabase no responde en 3 segundos), usa products.js como siempre.
+  // Son datos PÚBLICOS (Project URL y anon key); nunca pegues acá la "service_role".
+  supabaseUrl: "https://pfptpduijyfjkkrdzoro.supabase.co",       // ej: "https://abcdefgh.supabase.co"
+  supabaseAnonKey: "sb_publishable__wzAvZT-mgts-qQ7EFHCsg_iJGL8goU",   // la clave "anon public"
+
   // --- Contacto ---
   // WhatsApp: código de país + código de área + número, SIN +, SIN espacios, SIN 15.
   // Ejemplo para Buenos Aires: 5491123456789

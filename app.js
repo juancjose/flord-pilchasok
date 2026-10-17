@@ -5,6 +5,31 @@
   var MP = CFG.mercadoPago || {};
   var BANK = CFG.bankTransfer || {};
   var PRODUCTS = (window.PRODUCTS || []).filter(function (p) { return p && p.id; });
+  var SB_URL = String(CFG.supabaseUrl || "").replace(/\/+$/, ""), SB_KEY = CFG.supabaseAnonKey || "";
+
+  /* ---------- Productos desde el panel (Supabase) ---------- */
+  // Convierte una fila de la tabla "products" al formato de products.js
+  function fromRow(r) {
+    var colors = (Array.isArray(r.colors) ? r.colors : []).filter(function (c) { return c && c.name; }).map(function (c) {
+      return { name: String(c.name), hex: c.hex || "", images: (c.images || []).filter(Boolean) };
+    });
+    var imgs = (r.images || []).filter(Boolean);
+    if (!imgs.length) colors.some(function (c) { if (c.images.length) { imgs = [c.images[0]]; return true; } });
+    return { id: r.id, name: r.name, price: Number(r.price) || 0, category: r.category || "", description: r.description || "",
+      sizes: (r.sizes || []).filter(Boolean), images: imgs, colors: colors, soldOut: !!r.sold_out };
+  }
+  // Pide los productos visibles. Si tarda más de 3 s o falla, devuelve null (se usa products.js).
+  function loadRemote(done) {
+    if (!SB_URL || !SB_KEY || !window.fetch) return done(null);
+    var finished = false, ctl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); end(null); }, 3000);
+    function end(v) { if (finished) return; finished = true; clearTimeout(t); done(v); }
+    fetch(SB_URL + "/rest/v1/products?select=*&active=eq.true&order=sort.asc,name.asc", {
+      headers: /^eyJ/.test(SB_KEY) ? { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY } : { apikey: SB_KEY }, signal: ctl ? ctl.signal : undefined
+    }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (rows) { var list = (rows || []).map(fromRow).filter(function (p) { return p.id && p.name; }); end(list.length ? list : null); })
+      .catch(function (e) { if (window.console) console.warn("Catálogo: se usa products.js (" + (e && e.message) + ")"); end(null); });
+  }
 
   var $ = function (id) { return document.getElementById(id); };
   var money = new Intl.NumberFormat(CFG.locale || "es-AR", { style: "currency", currency: CFG.currency || "ARS", maximumFractionDigits: 0 });
@@ -249,7 +274,16 @@
     var link = location.origin + location.pathname + "#p=" + encodeURIComponent(p.id) + (color ? "&c=" + encodeURIComponent(color) : "");
     return "Hola Nancy! Quería consultar stock de: " + p.name.toUpperCase() + (color ? " - Color: " + color : "") + " - Talle " + sizeLabel(p) + " - " + fmt(p.price) + "\n" + link;
   }
-  function updateConsult() { if (current) $("pmConsult").href = whatsUrl(consultText(current, currentColor)); }
+  function updateConsult() {
+    if (!current) return;
+    var out = !!current.soldOut, b = $("pmConsult");
+    var txt = consultText(current, currentColor);
+    if (out) txt = txt.replace("Quería consultar stock de:", "¿Va a volver a entrar? Me interesa:");
+    b.href = whatsUrl(txt);
+    b.lastChild.textContent = out ? "Consultar si vuelve" : "Consultá stock con Nancy";
+    b.classList.toggle("btn--ghost", out); b.classList.toggle("btn--gold", !out);
+    $("pmSoldOut").hidden = !out;
+  }
   // Abrir un producto desde un enlace compartido (#p=id&c=color)
   function openFromHash() {
     var m = /[#&]p=([^&]+)/.exec(location.hash); if (!m) return;
@@ -259,5 +293,11 @@
   }
 
   /* ---------- Inicio ---------- */
-  initStatic(); renderFilters(); renderGrid(); openFromHash();
+  initStatic();
+  if (SB_URL && SB_KEY) $("grid").setAttribute("aria-busy", "true");
+  loadRemote(function (list) {
+    if (list) PRODUCTS = list;
+    $("grid").removeAttribute("aria-busy");
+    renderFilters(); renderGrid(); openFromHash();
+  });
 })();

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Administración | Flor de Pilchas</title>
+  <link rel="icon" href="favicon-32.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="ah">
+    <a href="./" class="ah__brand" title="Ver la tienda"><img src="logo-192.png" width="40" height="40" alt=""><span>Flor de Pilchas</span></a>
+    <span class="ah__tag">Administración</span>
+    <div class="ah__user" id="user" hidden><span id="uemail"></span><a href="./" target="_blank" rel="noopener" class="link">Ver tienda</a><button id="logout" class="link" type="button">Salir</button></div>
+  </header>
+
+  <main>
+    <section id="v-loading" class="center"><p class="muted">Cargando…</p></section>
+
+    <section id="v-msg" class="center" hidden>
+      <div class="card-form"><h1 id="msg-title"></h1><p id="msg-text" class="muted"></p></div>
+    </section>
+
+    <section id="v-login" class="center" hidden>
+      <form id="login" class="card-form" novalidate>
+        <img class="card-form__logo" src="logo-192.png" width="72" height="72" alt="">
+        <h1>Iniciar sesión</h1>
+        <label>Email<input type="email" name="email" required autocomplete="username"></label>
+        <label>Contraseña<input type="password" name="password" required autocomplete="current-password"></label>
+        <p class="err" id="login-err" hidden></p>
+        <button class="btn btn--gold" type="submit">Ingresar</button>
+        <button type="button" class="link" id="forgot">¿Olvidaste tu contraseña?</button>
+      </form>
+    </section>
+
+    <section id="v-forgot" class="center" hidden>
+      <form id="forgotf" class="card-form">
+        <h1>Recuperar contraseña</h1>
+        <p class="muted">Te mandamos un enlace por email para elegir una contraseña nueva.</p>
+        <label>Email<input type="email" id="forgot-email" required autocomplete="username"></label>
+        <p class="err" id="forgot-err" hidden></p>
+        <p class="ok" id="forgot-ok" hidden>Listo. Revisá tu correo (y la carpeta de spam) y abrí el enlace.</p>
+        <button class="btn btn--gold" type="submit">Enviar enlace</button>
+        <button type="button" class="link" id="forgot-back">Volver</button>
+      </form>
+    </section>
+
+    <section id="v-password" class="center" hidden>
+      <form id="pwd" novalidate class="card-form">
+        <h1>Elegí tu contraseña</h1>
+        <p class="muted" id="pwd-email"></p>
+        <label>Contraseña nueva<input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Mínimo 8 caracteres"></label>
+        <label>Repetila<input type="password" name="confirm" required autocomplete="new-password"></label>
+        <p class="err" id="pwd-err" hidden></p>
+        <button class="btn btn--gold" type="submit">Guardar y entrar</button>
+      </form>
+    </section>
+
+    <section id="v-products" hidden>
+      <div class="bar">
+        <h1>Productos <small id="pcount"></small></h1>
+        <div class="tools">
+          <input id="psearch" type="search" placeholder="Buscar…" aria-label="Buscar productos">
+          <select id="pcat" aria-label="Categoría"><option value="">Todas las categorías</option></select>
+          <select id="pstate" aria-label="Estado"><option value="">Todos</option><option value="visible">Visibles</option><option value="hidden">Ocultos</option><option value="soldout">Agotados</option></select>
+          <button class="btn btn--gold" id="pnew" type="button">+ Nuevo producto</button>
+        </div>
+      </div>
+      <ul class="plist" id="plist"></ul>
+      <p class="muted center-text" id="pempty" hidden>No hay productos con ese filtro.</p>
+    </section>
+
+    <section id="v-edit" hidden>
+      <form id="eform" novalidate>
+        <div class="bar">
+          <h1 id="etitle">Producto</h1>
+          <div class="tools">
+            <button type="button" class="btn" id="eback">Volver</button>
+            <button type="button" class="btn btn--danger" id="edelete">Eliminar</button>
+            <button type="submit" class="btn btn--gold" id="esave">Guardar</button>
+          </div>
+        </div>
+        <div class="egrid">
+          <div class="panel">
+            <h2>Datos</h2>
+            <label>Nombre<input name="name" required maxlength="120"></label>
+            <div class="row2">
+              <label>Precio ($)<input name="price" type="number" min="0" step="1" required inputmode="numeric"></label>
+              <label>Categoría<input name="category" list="catlist" required placeholder="Remeras, Vestidos…"></label>
+            </div>
+            <datalist id="catlist"></datalist>
+            <label>Talles <span class="hint">separados por coma (ej: Único · S, M, L · L/XL)</span><input name="sizes" placeholder="Único"></label>
+            <label>Descripción<textarea name="description" rows="4" maxlength="600"></textarea></label>
+            <div class="row2">
+              <label>ID (dirección) <span class="hint">sin espacios ni acentos</span><input name="id" required pattern="[a-z0-9\-]+" maxlength="80"></label>
+              <label>Orden <span class="hint">menor = aparece primero</span><input name="sort" type="number" step="1"></label>
+            </div>
+            <div class="toggles">
+              <label class="switch"><input type="checkbox" name="active"><span></span>Visible en la tienda</label>
+              <label class="switch"><input type="checkbox" name="sold_out"><span></span>Agotado</label>
+            </div>
+            <h2>Vista previa del WhatsApp</h2>
+            <pre class="wa" id="wapreview"></pre>
+          </div>
+
+          <div class="panel">
+            <h2>Colores y fotos</h2>
+            <p class="hint">Cada color tiene sus fotos; la primera es la principal. Las fotos se achican solas a 800×1000 antes de subirse.</p>
+            <div id="colors"></div>
+            <button type="button" class="btn btn--ghost" id="caddcolor">+ Agregar color</button>
+            <div id="genwrap">
+              <h2>Fotos sin color</h2>
+              <p class="hint">Solo si la prenda no tiene colores.</p>
+              <div class="photos" data-target="general"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
