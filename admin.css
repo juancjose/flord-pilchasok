@@ -91,3 +91,19 @@ textarea{resize:vertical}
 .toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--surface);border:1px solid var(--gold);color:var(--text);padding:.8rem 1.2rem;font-size:.88rem;transition:transform .3s;z-index:50;max-width:90vw}
 .toast.show{transform:translate(-50%,0)}
 @media(max-width:640px){.ah{padding:.7rem 1rem;flex-wrap:wrap}.ah__tag{display:none}.ah__user{font-size:.75rem;gap:.7rem}#uemail{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}main{padding:0 1rem 4rem}.tools{width:100%}.tools input,.tools select{flex:1;min-width:0}.tools .btn{flex:1}.prow{grid-template-columns:52px 1fr;}.prow img{width:52px;height:65px}.prow__price{grid-column:2;text-align:left}}
+
+/* Botón "Ver mi tienda" (siempre visible) */
+.ah__store{display:inline-flex;align-items:center;gap:.55rem;margin-left:auto;padding:.75rem 1.3rem;font-size:.78rem;text-decoration:none}
+.ah__store svg{flex:none}
+.ah__store~.ah__user{margin-left:0}
+/* Aviso de guardado */
+.saved{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:1rem;background:rgba(0,0,0,.72);backdrop-filter:blur(3px)}
+.saved__box{width:min(420px,100%);background:var(--surface);border:1px solid var(--gold);padding:2rem 1.6rem 1.4rem;display:grid;gap:.8rem;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.saved__ok{width:56px;height:56px;margin:0 auto .2rem;border-radius:50%;display:grid;place-items:center;font-size:1.7rem;color:var(--on-gold);background:var(--gold)}
+.saved__box p{margin:0 0 .4rem}
+.saved__box .btn{width:100%;padding:.95rem 1.2rem;font-size:.78rem;text-decoration:none;display:block}
+.saved__box .link{justify-self:center;margin-top:.3rem;font-size:.85rem}
+.saved__note{color:var(--rose);font-size:.85rem}
+@media(max-width:640px){.ah__brand span{font-size:1.15rem}.ah__store{padding:.7rem 1rem;font-size:.74rem}.ah__user{width:100%;justify-content:space-between;margin-left:0}}
+@media(max-width:380px){.ah__brand span{display:none}}
+@media(max-width:640px){.tools{flex-wrap:wrap;gap:.5rem}.tools input{flex:1 1 100%}.tools select{flex:1 1 calc(50% - .25rem)}.tools .btn{flex:1 1 100%}}

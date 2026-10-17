@@ -25,7 +25,7 @@
     var t = setTimeout(function () { if (ctl) ctl.abort(); end(null); }, 3000);
     function end(v) { if (finished) return; finished = true; clearTimeout(t); done(v); }
     fetch(SB_URL + "/rest/v1/products?select=*&active=eq.true&order=sort.asc,name.asc", {
-      headers: /^eyJ/.test(SB_KEY) ? { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY } : { apikey: SB_KEY }, signal: ctl ? ctl.signal : undefined
+      headers: /^eyJ/.test(SB_KEY) ? { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY } : { apikey: SB_KEY }, cache: "no-store", signal: ctl ? ctl.signal : undefined
     }).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (rows) { var list = (rows || []).map(fromRow).filter(function (p) { return p.id && p.name; }); end(list.length ? list : null); })
       .catch(function (e) { if (window.console) console.warn("Catálogo: se usa products.js (" + (e && e.message) + ")"); end(null); });
@@ -283,6 +283,7 @@
     b.lastChild.textContent = out ? "Consultar si vuelve" : "Consultá stock con Nancy";
     b.classList.toggle("btn--ghost", out); b.classList.toggle("btn--gold", !out);
     $("pmSoldOut").hidden = !out;
+    if (adminEdit) adminEdit.href = ADMIN_URL + "#editar=" + encodeURIComponent(current.id);
   }
   // Abrir un producto desde un enlace compartido (#p=id&c=color)
   function openFromHash() {
@@ -290,6 +291,47 @@
     var id = decodeURIComponent(m[1]), c = /[&]c=([^&]+)/.exec(location.hash), p = byId(id); if (!p) return;
     if (c && colorByName(p, decodeURIComponent(c[1]))) cardColor[id] = decodeURIComponent(c[1]);
     openProduct(id);
+  }
+
+  /* ---------- Atajos para la administradora ----------
+     Solo si en este navegador hay una sesión guardada del panel: se carga supabase-js,
+     se confirma que sea administradora (is_admin) y recién ahí aparece el botón dorado.
+     Las visitas comunes no descargan nada extra. */
+  var ADMIN_URL = "admin", adminEdit = null;
+  function hasAdminToken() {
+    try {
+      var key = "sb-" + new URL(SB_URL).hostname.split(".")[0] + "-auth-token";
+      return !!localStorage.getItem(key);
+    } catch (e) { return false; }
+  }
+  function loadScript(src, cb) {
+    var s = document.createElement("script"); s.src = src; s.async = true;
+    s.onload = function () { cb(true); }; s.onerror = function () { cb(false); };
+    document.head.appendChild(s);
+  }
+  function showAdminBar() {
+    var bar = document.createElement("a");
+    bar.className = "admin-pill"; bar.href = ADMIN_URL; bar.id = "adminPill";
+    bar.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span>Panel de administración</span>';
+    document.body.appendChild(bar);
+    adminEdit = document.createElement("a");
+    adminEdit.className = "btn btn--ghost btn--block admin-edit"; adminEdit.id = "pmAdminEdit";
+    adminEdit.textContent = "Editar esta prenda";
+    $("pmConsult").parentNode.insertBefore(adminEdit, $("pmConsult").nextSibling);
+    if (current) adminEdit.href = ADMIN_URL + "#editar=" + encodeURIComponent(current.id);
+  }
+  function checkAdmin() {
+    if (!SB_URL || !SB_KEY || !hasAdminToken()) return;
+    loadScript("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js", function (ok) {
+      if (!ok || !window.supabase || !window.supabase.createClient) return;
+      try {
+        var sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false } });
+        sb.auth.getSession().then(function (r) {
+          if (!r || !r.data || !r.data.session) return null;
+          return sb.rpc("is_admin").then(function (x) { if (x && x.data === true) showAdminBar(); });
+        }).catch(function () {});
+      } catch (e) {}
+    });
   }
 
   /* ---------- Inicio ---------- */
@@ -300,4 +342,5 @@
     $("grid").removeAttribute("aria-busy");
     renderFilters(); renderGrid(); openFromHash();
   });
+  checkAdmin();
 })();

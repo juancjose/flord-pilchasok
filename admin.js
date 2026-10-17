@@ -27,6 +27,7 @@
   var linkType = hashP.get("type") || queryP.get("type") || "";
   var linkError = hashP.get("error_description") || queryP.get("error_description");
   var mustSetPassword = linkType === "invite" || linkType === "recovery";
+  var wantEdit = hashP.get("editar") || ""; // la tienda abre /admin#editar=<id> con el botón «Editar»
   function cleanUrl() { history.replaceState(null, "", location.pathname); }
 
   function init() {
@@ -61,7 +62,11 @@
     $("#uemail").textContent = session.user.email; $("#user").hidden = false;
     sb.rpc("is_admin").then(function (r) {
       if (r.error || !r.data) return message("Sin permisos", "El usuario <b>" + esc(session.user.email) + "</b> no es administrador. Pedile a quien configuró Supabase que ejecute <b>admins.sql</b> con este email.");
-      show("products"); loadProducts();
+      show("products");
+      loadProducts().then(function () {
+        if (wantEdit && products.some(function (p) { return p.id === wantEdit; })) edit(wantEdit);
+        wantEdit = "";
+      });
     });
   }
   function showPassword(session) {
@@ -309,8 +314,9 @@
       if (r.error) return fail(r.error, "No se pudo guardar");
       var still = JSON.stringify(row), paths = removedUrls.filter(function (u) { return still.indexOf(u) < 0; }).map(ownPath).filter(Boolean);
       if (paths.length) sb.storage.from(BUCKET).remove(paths);
-      toast("Guardado ✓ (la tienda se actualiza en unos segundos)");
-      loadProducts().then(function () { show("products"); });
+      var saved = { id: row.id, name: row.name, active: row.active };
+      cur._isNew = false; F("id").readOnly = true; $("#edelete").hidden = false; $("#etitle").textContent = row.name;
+      loadProducts().then(function () { showSaved(saved); });
     });
   });
   $("#edelete").addEventListener("click", function () {
@@ -324,6 +330,23 @@
       toast("Producto eliminado"); loadProducts().then(function () { show("products"); });
     });
   });
+  // Aviso después de guardar, con botón para ver la prenda en la tienda
+  var savedId = "";
+  function showSaved(p) {
+    savedId = p.id;
+    var go = $("#saved-go");
+    go.href = "./#p=" + encodeURIComponent(p.id);
+    go.hidden = !p.active;
+    $("#saved-text").innerHTML = p.active
+      ? "«" + esc(p.name) + "» ya está actualizada en la tienda."
+      : "«" + esc(p.name) + "» está <b>oculta</b>: no se ve en la tienda hasta que actives «Visible en la tienda».";
+    $("#saved").hidden = false; (p.active ? go : $("#saved-edit")).focus();
+  }
+  function closeSaved() { $("#saved").hidden = true; }
+  $("#saved-edit").addEventListener("click", function () { closeSaved(); edit(savedId); });
+  $("#saved-list").addEventListener("click", function () { closeSaved(); show("products"); renderList(); });
+  $("#saved").addEventListener("click", function (e) { if (e.target === this) closeSaved(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("#saved").hidden) closeSaved(); });
   $("#eback").addEventListener("click", function () { show("products"); renderList(); });
 
   init();
