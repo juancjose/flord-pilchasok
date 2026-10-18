@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Flor de Pilchas | Ropa</title>
   <meta name="description" content="Catálogo de ropa seleccionada. Envíos a todo el país. Consultá stock por WhatsApp.">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#0b0b0b">
   <!-- Tema claro/oscuro: se aplica antes de pintar la página para que no haya parpadeo -->
   <script src="config.js"></script>
   <script>
@@ -19,7 +19,7 @@
       }
       document.documentElement.setAttribute("data-theme", t);
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute("content", t === "light" ? "#faf7f2" : "#0a0a0a");
+      if (m) m.setAttribute("content", t === "light" ? "#f6f1e8" : "#0b0b0b");
     })();
   </script>
   <meta property="og:type" content="website">
@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://flord-pilchasok.vercel.app/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
@@ -46,12 +46,12 @@
 
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#inicio" class="brand" aria-label="Flor de Pilchas, inicio"><img class="brand__logo js-logo" src="logo-192.png" width="48" height="48" alt="Logo"><span id="brandName">Flor de Pilchas</span></a>
       <nav class="nav" aria-label="Principal">
         <a href="#tienda">Tienda</a>
         <a href="#nosotros">Nosotros</a>
         <a href="#contacto">Contacto</a>
       </nav>
+      <a href="#inicio" class="brand" aria-label="Flor de Pilchas, inicio"><img class="brand__logo js-logo" src="logo-192.png" width="40" height="40" alt="Logo"><span id="brandName">Flor de Pilchas</span></a>
       <div class="header__actions">
       <button class="theme-btn" id="themeToggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar a modo claro">
         <svg class="i-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
@@ -65,24 +65,27 @@
     <section class="hero" id="inicio">
       <div class="container hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow" id="heroEyebrow">Nueva colección</p>
+          <p class="eyebrow eyebrow--line" id="heroEyebrow">Nueva colección</p>
           <h1 id="heroTitle">Estilo simple</h1>
           <p class="hero__text" id="heroText"></p>
-          <a href="#tienda" class="btn btn--gold">Ver colección</a>
+          <a href="#tienda" class="link-cta">Ver colección <span aria-hidden="true">&rarr;</span></a>
         </div>
-        <div class="hero__logo">
-          <img class="js-logo" src="logo-512.png" srcset="logo-512.png 512w, logo.png 1024w" sizes="(min-width:900px) 190px, 124px" width="190" height="190" alt="Logo">
-        </div>
+        <a class="hero__figure" href="#p=remera-boxing&amp;c=Marr%C3%B3n" data-open="remera-boxing" data-color="Marrón" aria-label="Ver Remera Boxing de Algodón en marrón">
+          <img src="remera-boxing-marron-front.webp" width="800" height="1000" alt="Remera Boxing de Algodón en color marrón" fetchpriority="high">
+          <span class="hero__caption">Remera Boxing · Marrón</span>
+        </a>
       </div>
     </section>
 
     <section class="section" id="tienda">
       <div class="container">
-        <header class="section__head">
-          <p class="eyebrow">Tienda</p>
-          <h2>Nuestras prendas</h2>
-        </header>
-        <div class="filters" id="filters" role="tablist" aria-label="Categorías"></div>
+        <div class="shop-head">
+          <header class="section__head">
+            <p class="eyebrow">Tienda</p>
+            <h2>Nuestras prendas</h2>
+          </header>
+          <div class="filters" id="filters" role="tablist" aria-label="Categorías"></div>
+        </div>
         <div class="grid" id="grid" aria-live="polite"></div>
         <p class="empty" id="empty" hidden>No hay productos en esta categoría todavía.</p>
       </div>
@@ -103,7 +106,7 @@
 
   <footer class="footer" id="contacto">
     <div class="footer__inner">
-      <div class="footer__brand"><img class="js-logo" src="logo-192.png" width="96" height="96" alt="Logo" loading="lazy"><p class="brand brand--footer" id="footBrandName"></p></div>
+      <div class="footer__brand"><img class="js-logo" src="logo-192.png" width="72" height="72" alt="Logo" loading="lazy"><p class="brand brand--footer" id="footBrandName"></p></div>
       <p class="footer__city" id="footCity"></p>
       <div class="footer__social">
         <a id="footWhats" class="social" title="WhatsApp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.88 1.21 3.08.15.2 2.09 3.19 5.06 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.04 2C6.5 2 2 6.5 2 12.04c0 1.77.46 3.5 1.34 5.02L2 22l5.06-1.33a10 10 0 0 0 4.98 1.27C17.58 21.94 22 17.5 22 12.04 22 6.5 17.58 2 12.04 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3 .79.8-2.92-.2-.31a8.17 8.17 0 0 1-1.26-4.4c0-4.53 3.7-8.22 8.25-8.22 4.54 0 8.23 3.69 8.23 8.22 0 4.54-3.69 8.16-8.34 8.16z"/></svg></a>

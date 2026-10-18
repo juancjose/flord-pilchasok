@@ -62,7 +62,7 @@
   function applyTheme(t, save) {
     if (rootEl.getAttribute("data-theme") !== t) rootEl.setAttribute("data-theme", t);
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", t === "light" ? "#faf7f2" : "#0a0a0a");
+    if (meta) meta.setAttribute("content", t === "light" ? "#f6f1e8" : "#0b0b0b");
     var btn = document.getElementById("themeToggle");
     if (btn) { var l = t === "light" ? "Cambiar a modo oscuro" : "Cambiar a modo claro"; btn.setAttribute("aria-label", l); btn.setAttribute("title", l); }
     document.querySelectorAll("img").forEach(function (i) {
@@ -295,6 +295,17 @@
     if (c && colorByName(p, decodeURIComponent(c[1]))) cardColor[id] = decodeURIComponent(c[1]);
     openProduct(id);
   }
+
+  // Foto de la portada: abre esa prenda en el color de la foto
+  document.querySelectorAll("[data-open]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      var id = el.getAttribute("data-open"), c = el.getAttribute("data-color"), p = byId(id);
+      if (!p) return; // si la prenda ya no existe, el enlace baja a la tienda
+      e.preventDefault();
+      if (c && colorByName(p, c)) cardColor[id] = c;
+      openProduct(id);
+    });
+  });
 
   /* ---------- Atajos para la administradora ----------
      Solo si en este navegador hay una sesión guardada del panel: se carga supabase-js,
