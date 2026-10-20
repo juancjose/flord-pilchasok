@@ -95,12 +95,15 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .link{background:none;border:0;padding:0;color:var(--muted);font-size:.75rem;text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- Portada: el nombre como cabecera de revista ---------- */
-.masthead{border-bottom:1px solid var(--line);background:radial-gradient(60% 140% at 50% 0%,var(--panel) 0%,transparent 70%),var(--bg)}
-.masthead__inner{text-align:center;padding-block:clamp(1.5rem,3.4vw,2.4rem) clamp(1.3rem,2.8vw,2rem)}
-.masthead__name{font-family:var(--serif);font-weight:300;font-size:clamp(2.75rem,12.6vw,7rem);line-height:.95;letter-spacing:.01em;margin:0;white-space:nowrap}
-.masthead__name em{font-style:italic;font-weight:300;font-size:.62em;letter-spacing:0;color:var(--gold-text);margin:0 .06em;position:relative;top:-.04em}
-.masthead__tag{display:flex;align-items:center;gap:1.2rem;max-width:620px;margin:clamp(.9rem,1.8vw,1.3rem) auto 0;font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.masthead__tag::before,.masthead__tag::after{content:"";flex:1;height:1px;background:var(--hair)}
+/* Portada con foto (Ron Lach / Pexels). Siempre oscura, también en tema claro */
+.masthead{position:relative;isolation:isolate;overflow:hidden;background:#14100b;color:#f3ecdf;border-bottom:1px solid rgba(201,169,110,.28);min-height:clamp(228px,17vw + 82px,304px);display:flex;align-items:center}
+.masthead__bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.masthead::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 90% at 50% 50%,rgba(10,8,6,.42) 0%,rgba(10,8,6,.7) 100%),linear-gradient(180deg,rgba(10,8,6,.35),rgba(10,8,6,.55))}
+.masthead__inner{width:100%;text-align:center;padding-block:clamp(1.6rem,3vw,2.2rem)}
+.masthead__name{font-family:var(--serif);font-weight:300;font-size:clamp(2.75rem,12.6vw,7rem);line-height:.95;letter-spacing:.01em;margin:0;white-space:nowrap;color:#f3ecdf;text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.masthead__name em{font-style:italic;font-weight:300;font-size:.62em;letter-spacing:0;color:#d9bc80;margin:0 .06em;position:relative;top:-.04em}
+.masthead__tag{display:flex;align-items:center;gap:1.2rem;max-width:620px;margin:clamp(.9rem,1.8vw,1.3rem) auto 0;font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,236,223,.82);white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.masthead__tag::before,.masthead__tag::after{content:"";flex:1;height:1px;background:rgba(217,188,128,.55)}
 .masthead__tag span{padding-left:.34em}
 @media(max-width:599px){.masthead__tag{gap:.8rem;letter-spacing:.24em;font-size:.56rem}.masthead__tag span{padding-left:.24em}}
 
