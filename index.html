@@ -32,6 +32,8 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://flord-pilchasok.vercel.app/og-image.png">
+  <link rel="preload" as="image" type="image/webp" href="hero-vidriera-m.webp" media="(max-width:899px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="hero-vidriera-1280.webp" media="(min-width:900px)" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -62,7 +64,12 @@
   </header>
 
   <main>
-    <section class="hero" id="inicio">
+    <section class="hero hero--foto" id="inicio">
+      <!-- Fondo: vidriera de noche (imagen generada para Flor de Pilchas). Celular: recorte vertical -->
+      <picture class="hero__bg" aria-hidden="true">
+        <source media="(max-width:899px)" srcset="hero-vidriera-m.webp" width="540" height="720">
+        <img src="hero-vidriera-1280.webp" width="1280" height="720" alt="" fetchpriority="high">
+      </picture>
       <div class="container hero__inner">
         <div class="hero__copy">
           <p class="eyebrow" id="heroEyebrow">Nueva colección</p>

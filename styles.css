@@ -103,6 +103,18 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 /* Portada original (logo grande). Sigue el tema; sin bordes: el degradé termina exactamente en --bg arriba y abajo */
 .hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--hero-lift) 28%,var(--hero-lift) 72%,var(--bg) 100%)}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 34% at 50% 25%,var(--hero-glow) 0%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 78%,transparent 100%)}
+/* Foto de fondo (vidriera de noche): velada con el color de la página y desvanecida arriba/abajo hacia --bg, sin bordes.
+   Oscuro: foto atenuada. Claro: velo crema (la portada sigue el tema). */
+.hero--foto{--veil:11,11,11;--photo-op:.62}
+[data-theme="light"] .hero--foto{--veil:246,241,232;--photo-op:.5}
+.hero__bg{display:block;position:absolute;inset:0;z-index:-2;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 24%,#000 74%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 24%,#000 74%,transparent 100%)}
+.hero__bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--hero-pos,62% 50%);opacity:var(--photo-op);filter:saturate(.85)}
+.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--veil),.42) 0%,rgba(var(--veil),.62) 45%,rgba(var(--veil),.7) 100%)}
+@media(min-width:900px){.hero__bg::after{background:linear-gradient(90deg,rgba(var(--veil),.86) 0%,rgba(var(--veil),.6) 40%,rgba(var(--veil),.18) 72%,rgba(var(--veil),.3) 100%)}}
+[data-theme="light"] .hero__bg::after{background:linear-gradient(180deg,rgba(var(--veil),.55),rgba(var(--veil),.75))}
+@media(min-width:900px){[data-theme="light"] .hero__bg::after{background:linear-gradient(90deg,rgba(var(--veil),.92) 0%,rgba(var(--veil),.72) 40%,rgba(var(--veil),.35) 72%,rgba(var(--veil),.45) 100%)}}
+
+@media(max-width:899px){.hero--foto{--hero-pos:50% 45%}}
 .hero__inner{display:grid;gap:1.4rem;align-items:center;justify-items:center;text-align:center;padding-block:2rem 2.4rem}
 .hero__logo{order:-1;width:clamp(170px,52vw,210px);aspect-ratio:1/1}
 .hero__logo img{display:block;width:100%;height:100%;aspect-ratio:1/1;border-radius:50%;object-fit:contain;box-shadow:var(--logo-shadow)}
