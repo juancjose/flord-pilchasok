@@ -38,3 +38,7 @@ Guía de uso paso a paso (cargar productos, fotos y precios): [`GUIA.md`](GUIA.m
 
 ## Licencia
 Código bajo licencia MIT. Ver [`LICENSE`](LICENSE).
+
+## Créditos
+
+- Foto de fondo de la portada (`hero-percha-1600.webp`, `hero-percha-800.webp`): Ron Lach en Pexels — https://www.pexels.com/photo/cloths-hanging-in-wardrobe-10330179/ (licencia Pexels: uso libre, atribución no obligatoria).
