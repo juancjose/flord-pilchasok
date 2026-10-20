@@ -297,6 +297,10 @@
   }
 
   // Foto de la portada: abre esa prenda en el color de la foto
+  // Línea inferior del header solo al bajar (arriba la portada se funde con el header)
+  var hdr = $("header");
+  if (hdr) { var hl = function () { hdr.classList.toggle("header--line", window.scrollY > 8); }; hl(); window.addEventListener("scroll", hl, { passive: true }); }
+
   document.querySelectorAll("[data-open]").forEach(function (el) {
     el.addEventListener("click", function (e) {
       var id = el.getAttribute("data-open"), c = el.getAttribute("data-color"), p = byId(id);
