@@ -94,28 +94,26 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .link-cta:hover{gap:1.1rem;color:var(--gold-text)}
 .link{background:none;border:0;padding:0;color:var(--muted);font-size:.75rem;text-decoration:underline;text-underline-offset:3px}
 
-/* ---------- Portada ---------- */
-.hero{border-bottom:1px solid var(--line);background:radial-gradient(70% 120% at 85% 50%,var(--panel) 0%,transparent 70%),var(--bg)}
-.hero__inner{display:grid;align-items:center;justify-items:center;text-align:center;padding-block:1.9rem 2.1rem}
-.hero h1{font-size:clamp(2.15rem,9vw,2.6rem);max-width:20ch;margin-inline:auto;text-wrap:balance}
-.hero__text{color:var(--muted);max-width:36ch;font-size:.9rem;margin:.8rem auto 1rem}
-.hero__figure{display:none}
-@media(min-width:900px){
-  .hero__inner{grid-template-columns:minmax(0,1fr) auto;justify-items:start;text-align:left;gap:4rem;padding-block:2rem}
-  .hero h1{margin-inline:0;max-width:19ch;font-size:clamp(3rem,4.3vw,3.75rem);line-height:1.02}
-  .hero__text{margin-inline:0;font-size:.95rem;margin-top:1.1rem;margin-bottom:1.5rem}
-  .hero__figure{display:block;position:relative;width:224px;justify-self:end;margin-right:40px}
-  .hero__figure::before{content:"";position:absolute;inset:14px -14px -14px 14px;border:1px solid var(--hair);pointer-events:none;transition:inset .6s var(--ease)}
-  .hero__figure img{position:relative;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;background:var(--media-bg);transition:transform 1.2s var(--ease)}
-  .hero__figure:hover::before{inset:8px -8px -8px 8px}
-  .hero__caption{position:absolute;top:14px;right:-40px;writing-mode:vertical-rl;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-}
-@media(min-width:1200px){.hero__inner{padding-left:4%}}
+/* ---------- Portada: el nombre como cabecera de revista ---------- */
+.masthead{border-bottom:1px solid var(--line);background:radial-gradient(60% 140% at 50% 0%,var(--panel) 0%,transparent 70%),var(--bg)}
+.masthead__inner{text-align:center;padding-block:clamp(1.5rem,3.4vw,2.4rem) clamp(1.3rem,2.8vw,2rem)}
+.masthead__name{font-family:var(--serif);font-weight:300;font-size:clamp(2.75rem,12.6vw,7rem);line-height:.95;letter-spacing:.01em;margin:0;white-space:nowrap}
+.masthead__name em{font-style:italic;font-weight:300;font-size:.62em;letter-spacing:0;color:var(--gold-text);margin:0 .06em;position:relative;top:-.04em}
+.masthead__tag{display:flex;align-items:center;gap:1.2rem;max-width:620px;margin:clamp(.9rem,1.8vw,1.3rem) auto 0;font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.masthead__tag::before,.masthead__tag::after{content:"";flex:1;height:1px;background:var(--hair)}
+.masthead__tag span{padding-left:.34em}
+@media(max-width:599px){.masthead__tag{gap:.8rem;letter-spacing:.24em;font-size:.56rem}.masthead__tag span{padding-left:.24em}}
+
+/* Encabezado: arriba solo el logo; el nombre chico aparece al bajar */
+.brand span{display:inline-block;max-width:0;opacity:0;overflow:hidden;transition:max-width .6s var(--ease),opacity .4s var(--ease)}
+.header--named .brand span{max-width:20em;opacity:1}
+.brand{gap:0;padding-left:0;transition:gap .6s var(--ease),padding .6s var(--ease)}
+.header--named .brand{gap:.75rem;padding-left:.3em}
 
 /* ---------- Secciones ---------- */
 .section{padding-block:clamp(4rem,9vw,7rem)}
 .section--alt{background:var(--panel);border-block:1px solid var(--line)}
-#tienda{padding-top:clamp(1.5rem,2.6vw,2.1rem)}
+#tienda{padding-top:clamp(1.4rem,2.4vw,2rem)}
 .shop-head{display:flex;flex-direction:column;align-items:center;gap:.9rem;margin-bottom:1.4rem}
 .section__head{text-align:center}
 .section__head .eyebrow{margin-bottom:.35rem}

@@ -150,8 +150,11 @@
     $("brandName").textContent = name;
     $("footBrandName").textContent = name;
     document.querySelectorAll(".js-logo").forEach(function (i) { i.alt = "Logo de " + name; });
-    $("heroTitle").textContent = CFG.heroTitle || name;
-    $("heroText").textContent = CFG.heroText || CFG.tagline || "";
+    // Portada: el nombre de la marca en grande (con "de" en cursiva) y una línea corta debajo
+    var mn = $("mastName");
+    if (mn && mn.textContent.replace(/\s+/g, " ").trim() !== name) mn.textContent = name;
+    var city = String(CFG.city || "").split(",")[0].trim();
+    if ($("mastTag")) $("mastTag").textContent = "Ropa seleccionada" + (city ? " · " + city : "");
     $("aboutText").textContent = CFG.about || "";
     $("perkShip").textContent = "Envíos a todo el país. Te cotizamos el costo por WhatsApp.";
     // En compu va en una línea con "·"; en celular cada parte va en su renglón
@@ -295,6 +298,16 @@
     if (c && colorByName(p, decodeURIComponent(c[1]))) cardColor[id] = decodeURIComponent(c[1]);
     openProduct(id);
   }
+
+  // Encabezado: el nombre chico aparece recién cuando el nombre grande de la portada sale de la pantalla
+  (function () {
+    var mast = $("inicio"), header = $("header");
+    if (!mast || !header) return;
+    if (!("IntersectionObserver" in window)) { header.classList.add("header--named"); return; }
+    new IntersectionObserver(function (en) {
+      header.classList.toggle("header--named", !en[0].isIntersecting);
+    }, { rootMargin: "-80px 0px 0px 0px" }).observe(mast.querySelector(".masthead__name") || mast);
+  })();
 
   // Foto de la portada: abre esa prenda en el color de la foto
   document.querySelectorAll("[data-open]").forEach(function (el) {
