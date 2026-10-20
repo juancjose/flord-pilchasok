@@ -67,10 +67,9 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
 .nav a:hover{color:var(--gold-text)}.nav a:hover::after{transform:scaleX(1)}
 @media(min-width:900px){.nav{display:flex}}
-.brand{grid-column:2;display:inline-flex;align-items:center;gap:.75rem;font-family:var(--serif);font-weight:400;font-size:1.02rem;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap;padding-left:.3em}
-.brand__logo{width:34px;height:34px;aspect-ratio:1/1;border-radius:50%;object-fit:contain;flex:none}
-@media(min-width:900px){.brand{font-size:1.2rem;letter-spacing:.36em}.brand__logo{width:40px;height:40px}}
-@media(max-width:380px){.brand{letter-spacing:.2em;font-size:.92rem;gap:.55rem}}
+.brand{grid-column:2;display:inline-flex;align-items:center;font-family:var(--serif);font-weight:400;font-size:1.02rem;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap;padding-left:.3em}
+@media(min-width:900px){.brand{font-size:1.2rem;letter-spacing:.36em}}
+@media(max-width:380px){.brand{letter-spacing:.2em;font-size:.92rem}}
 .header__actions{grid-column:3;justify-self:end;display:flex;align-items:center}
 .theme-btn{background:none;border:0;padding:.55rem;display:grid;place-items:center;color:var(--soft);border-radius:50%;transition:color .3s}
 .theme-btn:hover{color:var(--gold-text)}
@@ -99,7 +98,9 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 .masthead{position:relative;isolation:isolate;overflow:hidden;background:#14100b;color:#f3ecdf;border-bottom:1px solid rgba(201,169,110,.28);min-height:clamp(228px,17vw + 82px,304px);display:flex;align-items:center}
 .masthead__bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 18%}
 .masthead::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 90% at 50% 50%,rgba(10,8,6,.42) 0%,rgba(10,8,6,.7) 100%),linear-gradient(180deg,rgba(10,8,6,.35),rgba(10,8,6,.55))}
-.masthead__inner{width:100%;text-align:center;padding-block:clamp(1.6rem,3vw,2.2rem)}
+.masthead__inner{width:100%;text-align:center;padding-block:clamp(1.1rem,2.2vw,1.6rem)}
+.masthead__emblem{display:block;width:clamp(92px,6vw + 48px,124px);aspect-ratio:256/132;margin:0 auto clamp(.35rem,.8vw,.6rem);background:url("emblema-512.webp") center/contain no-repeat;background-image:image-set(url("emblema-256.webp") 1x,url("emblema-512.webp") 2x);filter:drop-shadow(0 2px 5px rgba(0,0,0,.55)) drop-shadow(0 0 14px rgba(0,0,0,.35))}
+.masthead--sello .masthead__emblem{background-image:url("emblema-oro-512.webp");background-image:image-set(url("emblema-oro-256.webp") 1x,url("emblema-oro-512.webp") 2x);opacity:.72;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
 .masthead__name{font-family:var(--serif);font-weight:300;font-size:clamp(2.75rem,12.6vw,7rem);line-height:.95;letter-spacing:.01em;margin:0;white-space:nowrap;color:#f3ecdf;text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .masthead__name em{font-style:italic;font-weight:300;font-size:.62em;letter-spacing:0;color:#d9bc80;margin:0 .06em;position:relative;top:-.04em}
 .masthead__tag{display:flex;align-items:center;gap:1.2rem;max-width:620px;margin:clamp(.9rem,1.8vw,1.3rem) auto 0;font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(243,236,223,.82);white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.5)}
@@ -110,8 +111,9 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 /* Encabezado: arriba solo el logo; el nombre chico aparece al bajar */
 .brand span{display:inline-block;max-width:0;opacity:0;overflow:hidden;transition:max-width .6s var(--ease),opacity .4s var(--ease)}
 .header--named .brand span{max-width:20em;opacity:1}
-.brand{gap:0;padding-left:0;transition:gap .6s var(--ease),padding .6s var(--ease)}
-.header--named .brand{gap:.75rem;padding-left:.3em}
+/* Sin logo en el header: el nombre chico aparece (y es clicable) solo al pasar la portada */
+.brand{padding-left:0;visibility:hidden;transition:padding .6s var(--ease),visibility 0s linear .6s}
+.header--named .brand{padding-left:.3em;visibility:visible;transition:padding .6s var(--ease),visibility 0s}
 
 /* ---------- Secciones ---------- */
 .section{padding-block:clamp(4rem,9vw,7rem)}

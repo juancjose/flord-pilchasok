@@ -42,3 +42,4 @@ Código bajo licencia MIT. Ver [`LICENSE`](LICENSE).
 ## Créditos
 
 - Foto de portada (`hero-percha-1600.webp`, `hero-percha-800.webp`): Ron Lach en Pexels — https://www.pexels.com/photo/cloths-hanging-in-wardrobe-10330179/ (licencia Pexels: uso libre, atribución no obligatoria).
+- Emblema de la portada (`emblema-*.webp`): percha con flores recortada del logo. Para la versión dorada translúcida (variante B), agregar la clase `masthead--sello` a `<section class="masthead">` en `index.html`.
