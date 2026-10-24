@@ -1,6 +1,6 @@
 # Panel de administración · Cómo activarlo (Supabase)
 
-Con esto vas a poder entrar a **https://flord-pilchasok.vercel.app/admin** con tu email y contraseña y cargar prendas, precios, talles, colores y fotos sin tocar código.
+Con esto vas a poder entrar a **https://flordepilchas.vercel.app/admin** con tu email y contraseña y cargar prendas, precios, talles, colores y fotos sin tocar código.
 
 **Ya está casi todo hecho:** el proyecto `flor-de-pilchas` de Supabase está creado, con las tablas, las 5 prendas cargadas, el permiso de administradora para **saliasnancy@hotmail.com** y la tienda conectada.
 Faltan solo **3 pasos**, desde la web de Supabase (unos 5 minutos). Mientras tanto la tienda funciona normal.
@@ -12,9 +12,11 @@ Faltan solo **3 pasos**, desde la web de Supabase (unos 5 minutos). Mientras tan
 Sin esto, el enlace del email lleva a una página que no existe.
 
 1. Abrí: <https://supabase.com/dashboard/project/pfptpduijyfjkkrdzoro/auth/url-configuration>
-2. En **Site URL** poné `https://flord-pilchasok.vercel.app/admin` y tocá **Save**.
+2. En **Site URL** poné `https://flordepilchas.vercel.app/admin` y tocá **Save**.
 3. En **Redirect URLs** tocá **Add URL** y agregá estas dos (de a una), y guardá:
-   - `https://flord-pilchasok.vercel.app/admin`
+   - `https://flordepilchas.vercel.app/admin`
+   - `https://flordepilchas.vercel.app/admin.html`
+   - `https://flord-pilchasok.vercel.app/admin` (dirección anterior, sigue funcionando)
    - `https://flord-pilchasok.vercel.app/admin.html`
 
 ## 2. Invitar a Nancy
@@ -51,7 +53,7 @@ Las claves públicas van en `config.js` (`supabaseUrl` y `supabaseAnonKey`). **N
 
 ## Después: cómo se usa el panel
 
-- Entrá a **https://flord-pilchasok.vercel.app/admin** con tu email y contraseña.
+- Entrá a **https://flordepilchas.vercel.app/admin** con tu email y contraseña.
 - **Productos:** tocá una prenda para editarla o **+ Nuevo producto** para crear una.
 - **Colores:** cada color tiene nombre, una muestra de color y sus propias fotos. La primera foto es la principal. Las flechas cambian el orden y la × la quita.
 - **Fotos:** se achican solas a 800×1000 antes de subirse. Si la foto tiene fondo transparente se ve entera; si no, se recorta un poco para llenar el cuadro.

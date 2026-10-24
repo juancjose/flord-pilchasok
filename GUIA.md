@@ -2,7 +2,7 @@
 
 La tienda es un **catálogo**: el cliente mira las prendas, elige el color y toca **"Consultá stock con Nancy"**, que abre WhatsApp con un mensaje ya escrito. No hay carrito ni pago dentro de la web: el stock, el envío y el cobro se arreglan por WhatsApp.
 
-Dirección: https://flord-pilchasok.vercel.app
+Dirección: https://flordepilchas.vercel.app
 
 ---
 
@@ -162,7 +162,7 @@ El resto de `config.js` (zonas de envío, Mercado Pago, número de pedido) qued�
 
 ## 7. Dominio propio
 
-Hoy la tienda está en `flord-pilchasok.vercel.app`. Para que quede como `flordpilchas.com.ar` hay que registrar el dominio (en NIC Argentina, nic.ar) y conectarlo desde Vercel, en el proyecto → *Settings* → *Domains*.
+Hoy la tienda está en `flordepilchas.vercel.app` (la dirección anterior, `flord-pilchasok.vercel.app`, sigue funcionando). Para que quede como `flordpilchas.com.ar` hay que registrar el dominio (en NIC Argentina, nic.ar) y conectarlo desde Vercel, en el proyecto → *Settings* → *Domains*.
 
 ---
 

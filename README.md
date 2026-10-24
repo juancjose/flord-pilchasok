@@ -2,7 +2,7 @@
 
 Catálogo web de ropa para el emprendimiento **Flor de Pilchas**: cada prenda tiene su botón **"Consultá stock con Nancy"**, que abre WhatsApp con la prenda, el color y el talle ya escritos. Es un sitio estático, sin base de datos ni backend.
 
-🔗 **Demo:** https://flord-pilchasok.vercel.app · Instagram: [@flordpilchas](https://www.instagram.com/flordpilchas/)
+🔗 **Demo:** https://flordepilchas.vercel.app · Instagram: [@flordpilchas](https://www.instagram.com/flordpilchas/)
 
 ## Funcionalidades
 - Modo oscuro (negro y dorado) y claro (marfil y dorado), con botón sol/luna y elección guardada.
