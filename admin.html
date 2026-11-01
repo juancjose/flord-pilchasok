@@ -92,7 +92,7 @@
             <label>Nombre<input name="name" required maxlength="120"></label>
             <div class="row2">
               <label>Precio ($)<input name="price" type="number" min="0" step="1" required inputmode="numeric"></label>
-              <label>Categoría<input name="category" list="catlist" required placeholder="Remeras, Vestidos…"></label>
+              <label>Categoría<select name="category" required><option value="">Elegí una categoría</option><option>Remeras</option><option>Camisas</option><option>Blazers</option><option>Pantalones</option><option>Vestidos</option></select></label>
             </div>
             <datalist id="catlist"></datalist>
             <label>Talles <span class="hint">separados por coma (ej: Único · S, M, L · L/XL)</span><input name="sizes" placeholder="Único"></label>

@@ -156,6 +156,15 @@
 
   /* ---------- Edición ---------- */
   var F = function (n) { return $("#eform").elements[n]; };
+  // Categorías fijas (para no crear repetidas). Si una prenda vieja tiene otra, se muestra igual para no perderla.
+  function setCategory(v) {
+    var sel = F("category");
+    Array.prototype.slice.call(sel.options).forEach(function (o) { if (o.hasAttribute("data-extra")) o.remove(); });
+    if (v && !Array.prototype.some.call(sel.options, function (o) { return o.value === v; })) {
+      var o = document.createElement("option"); o.value = o.textContent = v; o.setAttribute("data-extra", ""); sel.appendChild(o);
+    }
+    sel.value = v || "";
+  }
   function edit(id) {
     var p = id ? products.filter(function (x) { return x.id === id; })[0] : null;
     var maxSort = products.reduce(function (m, x) { return Math.max(m, x.sort || 0); }, 0);
@@ -164,7 +173,7 @@
     cur.colors = (cur.colors || []).map(function (c) { return { name: c.name || "", hex: c.hex || "#888888", images: (c.images || []).slice() }; });
     cur.images = (cur.images || []).slice();
     $("#etitle").textContent = p ? p.name : "Nuevo producto";
-    F("name").value = cur.name; F("price").value = cur.price; F("category").value = cur.category; F("description").value = cur.description || "";
+    F("name").value = cur.name; F("price").value = cur.price; setCategory(cur.category); F("description").value = cur.description || "";
     F("sizes").value = (cur.sizes || []).join(", "); F("id").value = cur.id; F("id").readOnly = !!p; F("id").title = p ? "El ID no se cambia para no romper enlaces ya compartidos" : "";
     F("sort").value = cur.sort; F("active").checked = !!cur.active; F("sold_out").checked = !!cur.sold_out;
     $("#edelete").hidden = !p;
