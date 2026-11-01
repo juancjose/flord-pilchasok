@@ -73,7 +73,11 @@
 
     <section class="shop" id="tienda" aria-label="Prendas">
       <div class="container">
-        <div class="filters" id="filters" role="tablist" aria-label="Categorías"></div>
+        <div class="filters-wrap" id="filtersWrap">
+          <div class="filters" id="filters" role="tablist" aria-label="Categorías"></div>
+          <button type="button" class="filters__more filters__more--prev" id="filtersPrev" aria-label="Ver categorías anteriores" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button type="button" class="filters__more filters__more--next" id="filtersNext" aria-label="Ver más categorías" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
         <div class="grid" id="grid" aria-live="polite"></div>
         <p class="empty" id="empty" hidden>No hay prendas en esta categoría todavía.</p>
       </div>

@@ -175,9 +175,13 @@
   function renderFilters() {
     var cats = ["Todas"];
     PRODUCTS.forEach(function (p) { if (p.category && cats.indexOf(p.category) < 0) cats.push(p.category); });
+    var keepX = $("filters").scrollLeft;
     $("filters").innerHTML = cats.length < 3 ? "" : cats.map(function (c) {
       return '<button class="filter' + (c === activeCat ? " is-active" : "") + '" data-cat="' + esc(c) + '" role="tab" aria-selected="' + (c === activeCat) + '">' + esc(c) + "</button>";
     }).join("");
+    $("filtersWrap").hidden = !$("filters").innerHTML;
+    $("filters").scrollLeft = keepX;
+    updateFilterHint();
   }
   function cardImg(src, alt, eager) {
     var ss = srcsetFor(src);
@@ -205,9 +209,20 @@
     Array.prototype.forEach.call($("grid").children, function (c) { if (revealIO) revealIO.observe(c); else c.classList.add("is-in"); });
     setTimeout(function () { Array.prototype.forEach.call($("grid").children, function (c) { c.style.transitionDelay = ""; }); }, 1200);
   }
+  // Pista visual cuando las categorías no entran en el ancho (fundido + flecha)
+  function updateFilterHint() {
+    var f = $("filters"), w = $("filtersWrap"), max = f.scrollWidth - f.clientWidth;
+    w.classList.toggle("has-prev", max > 2 && f.scrollLeft > 2);
+    w.classList.toggle("has-next", max > 2 && f.scrollLeft < max - 2);
+  }
+  $("filters").addEventListener("scroll", updateFilterHint, { passive: true });
+  window.addEventListener("resize", updateFilterHint);
+  $("filtersNext").addEventListener("click", function () { $("filters").scrollBy({ left: $("filters").clientWidth * 0.7, behavior: "smooth" }); });
+  $("filtersPrev").addEventListener("click", function () { $("filters").scrollBy({ left: -$("filters").clientWidth * 0.7, behavior: "smooth" }); });
   $("filters").addEventListener("click", function (e) {
     var b = e.target.closest("[data-cat]"); if (!b) return;
     activeCat = b.getAttribute("data-cat"); renderFilters(); renderGrid();
+    var on = $("filters").querySelector(".is-active"); if (on && on.scrollIntoView) on.scrollIntoView({ inline: "nearest", block: "nearest", behavior: "smooth" });
     var g = $("tienda"); if (g.getBoundingClientRect().top < 0) g.scrollIntoView({ behavior: "smooth" });
   });
   $("grid").addEventListener("click", function (e) {

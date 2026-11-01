@@ -67,7 +67,16 @@ html.theme-anim,html.theme-anim *,html.theme-anim *::before,html.theme-anim *::a
 
 /* ---------- Filtros ---------- */
 .shop{padding:.5rem 0 3rem}
-.filters{position:sticky;top:var(--header-h);z-index:20;display:flex;gap:.6rem;overflow-x:auto;scrollbar-width:none;padding:.9rem 0;margin-bottom:.6rem;background:linear-gradient(var(--bg) 80%,transparent)}
+.filters-wrap{position:sticky;top:var(--header-h);z-index:20;margin-bottom:.6rem;background:linear-gradient(var(--bg) 80%,transparent)}
+.filters{display:flex;gap:.6rem;overflow-x:auto;scrollbar-width:none;padding:.9rem 0;scroll-behavior:smooth;overscroll-behavior-x:contain}
+/* Si no entran todas las categorías: fundido al costado + flecha */
+.filters-wrap::before,.filters-wrap::after{content:"";position:absolute;top:0;bottom:0;width:72px;pointer-events:none;opacity:0;transition:opacity .25s}
+.filters-wrap::before{left:0;background:linear-gradient(90deg,var(--bg) 35%,transparent)}
+.filters-wrap::after{right:0;background:linear-gradient(270deg,var(--bg) 35%,transparent)}
+.filters-wrap.has-prev::before,.filters-wrap.has-next::after{opacity:1}
+.filters__more{position:absolute;top:50%;z-index:1;width:40px;height:40px;margin-top:-20px;display:grid;place-items:center;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--gold);box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s}
+.filters__more--prev{left:0}.filters__more--next{right:0}
+.filters-wrap.has-prev .filters__more--prev,.filters-wrap.has-next .filters__more--next{opacity:1;pointer-events:auto}
 .filters::-webkit-scrollbar{display:none}
 .filters:empty{display:none}
 .filter{flex:none;min-height:46px;padding:.45rem 1.35rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-size:1rem;font-weight:500;color:var(--text);transition:background-color .2s,border-color .2s,color .2s}
