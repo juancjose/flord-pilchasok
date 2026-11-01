@@ -54,7 +54,16 @@
     if (!name) return "placeholder.svg";
     return themedSrc(imgSrcRaw(name));
   }
+  // Fotos propias publicadas con dirección completa (ej: https://flord-pilchasok.vercel.app/foto.webp) se sirven desde este mismo sitio
+  var OWN_IMG = /^https:\/\/(?:flord-pilchasok|flordepilchas)\.vercel\.app\/([\w.-]+\.webp)$/;
+  // Fotos locales .webp tienen una versión chica "nombre.w480.webp" para la grilla
+  function srcsetFor(name) {
+    var n = imgSrcRaw(name || "");
+    if (!/^[\w-]+\.webp$/.test(n) || /^hero-|\.w480\.webp$/.test(n)) return "";
+    return n.replace(/\.webp$/, ".w480.webp") + " 480w, " + n + " 800w";
+  }
   function imgSrcRaw(name) {
+    var own = OWN_IMG.exec(name || ""); if (own) return own[1];
     // Versión plana: todas las fotos están en la misma carpeta que index.html, así que alcanza con el nombre del archivo.
     // (Si alguien escribe "images/foto.jpg" por costumbre, se ignora la carpeta.)
     return /^(https?:)?\/\//.test(name) || name.indexOf("/") === 0 ? name : name.replace(/^(\.\/)?images\//, "");
@@ -150,24 +159,15 @@
     $("brandName").textContent = name;
     $("footBrandName").textContent = name;
     document.querySelectorAll(".js-logo").forEach(function (i) { i.alt = "Logo de " + name; });
-    $("heroTitle").textContent = CFG.heroTitle || name;
-    $("heroText").textContent = CFG.heroText || CFG.tagline || "";
-    $("aboutText").textContent = CFG.about || "";
-    $("perkShip").textContent = "Envíos a todo el país. Te cotizamos el costo por WhatsApp.";
-    // En compu va en una línea con "·"; en celular cada parte va en su renglón
-    $("footShip").innerHTML = String(CFG.footerShipping || CFG.shippingNote || "").split(" · ").map(function (part) {
-      return '<span class="part">' + esc(part).replace(/Correo Argentino \//g, "Correo\u00a0Argentino\u00a0/") + "</span>";
-    }).join('<span class="dot" aria-hidden="true"> · </span>');
-    if (BANK.alias) $("footAlias").innerHTML = "Alias Mercado Pago: <strong>" + esc(BANK.alias) + "</strong>";
-    $("pmShipNote").textContent = "Te respondemos por WhatsApp con stock, envío y formas de pago.";
-    $("footCity").textContent = CFG.city || "";
-    $("footHours").textContent = CFG.hours || "";
-    $("footCopy").textContent = "© " + new Date().getFullYear() + " " + name + ". Todos los derechos reservados.";
+    $("heroTitle").textContent = CFG.heroTitlePro || "Prendas lindas, elegidas con cariño";
+    $("heroText").textContent = CFG.heroTextPro || "Consultá stock y envíos por WhatsApp.";
+    $("pmShipNote").textContent = "Envíos a todo el país. Te respondemos con stock, envío y formas de pago.";
+    $("footCopy").textContent = "© " + new Date().getFullYear() + " " + name;
+    $("headerWhats").href = whatsUrl("Hola Nancy! Quería hacer una consulta.");
     $("footWhats").href = whatsUrl(); $("footWhats").setAttribute("aria-label", "WhatsApp " + (CFG.whatsappDisplay || ""));
     $("whatsFab").href = whatsUrl("Hola! Quería consultar por una prenda.");
     var ig = String(CFG.instagram || "").replace(/^@/, "");
     $("footInsta").href = CFG.instagramUrl || ("https://www.instagram.com/" + ig + "/"); $("footInsta").setAttribute("aria-label", "Instagram @" + ig);
-    $("topbar").textContent = "Envíos a todo el país · consultá stock por WhatsApp";
   }
 
   /* ---------- Catálogo ---------- */
@@ -179,29 +179,36 @@
       return '<button class="filter' + (c === activeCat ? " is-active" : "") + '" data-cat="' + esc(c) + '" role="tab" aria-selected="' + (c === activeCat) + '">' + esc(c) + "</button>";
     }).join("");
   }
+  function cardImg(src, alt, eager) {
+    var ss = srcsetFor(src);
+    return '<img src="' + esc(imgSrc(src)) + '"' + (ss ? ' srcset="' + esc(ss) + '" sizes="(min-width:900px) 380px, (min-width:360px) 48vw, 92vw"' : "") +
+      ' alt="' + esc(alt) + '" width="480" height="600" ' + (eager ? 'fetchpriority="high"' : 'loading="lazy"') + ' decoding="async">';
+  }
+  var revealIO = window.IntersectionObserver ? new IntersectionObserver(function (ents) {
+    ents.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("is-in"); revealIO.unobserve(en.target); } });
+  }, { rootMargin: "0px 0px -6% 0px" }) : null;
   function renderGrid() {
     var list = PRODUCTS.filter(function (p) { return activeCat === "Todas" || p.category === activeCat; });
     $("empty").hidden = list.length > 0;
-    $("grid").innerHTML = list.map(function (p) {
+    $("grid").innerHTML = list.map(function (p, k) {
       var cc = cardColor[p.id] || null, imgs = imagesFor(p, cc).imgs, cols = colorsOf(p), multi = cols.length > 1;
       var sc = multi ? shownColor(p, cc) : null;
-      return '<button class="card' + "" + '" data-id="' + esc(p.id) + '" aria-label="Ver ' + esc(p.name) + '">' +
-        '<div class="card__media"' + "" + '>' +
-        '<img src="' + esc(imgSrc(imgs[0])) + '" alt="' + esc(p.name) + '" loading="lazy">' +
-        (imgs[1] ? '<img src="' + esc(imgSrc(imgs[1])) + '" alt="" loading="lazy">' : "") +
-        (p.soldOut ? '<span class="badge">Agotado</span>' : "") +
-        "</div>" +
-        '<p class="card__cat">' + esc(p.category || "") + "</p>" +
-        '<h3 class="card__name">' + esc(p.name) + "</h3>" +
+      return '<button class="card" data-id="' + esc(p.id) + '" aria-label="Ver ' + esc(p.name) + ', ' + esc(fmt(p.price)) + '" style="transition-delay:' + Math.min(k, 6) * 60 + 'ms">' +
+        '<div class="card__media">' + cardImg(imgs[0], p.name, k < 3) + (imgs[1] ? cardImg(imgs[1], "", false) : "") +
+        (p.soldOut ? '<span class="badge">Agotado</span>' : "") + '<span class="card__view" aria-hidden="true">Ver prenda</span></div>' +
+        '<div class="card__body"><h3 class="card__name">' + esc(p.name) + "</h3>" +
+        '<div class="card__row"><p class="card__price">' + fmt(p.price) + "</p>" +
         (cols.length ? '<p class="card__swatches" aria-label="Colores: ' + esc(cols.map(function (c) { return c.name; }).join(", ")) + '">' + cols.map(function (c) {
           return '<span class="swatch-dot' + (c.name === sc ? " is-active" : "") + '" style="background:' + esc(c.hex || "#888") + '" title="' + esc(c.name) + '"></span>';
-        }).join("") + "</p>" : "") +
-        '<p class="card__price">' + fmt(p.price) + "</p></button>";
+        }).join("") + "</p>" : "") + "</div></div></button>";
     }).join("");
+    Array.prototype.forEach.call($("grid").children, function (c) { if (revealIO) revealIO.observe(c); else c.classList.add("is-in"); });
+    setTimeout(function () { Array.prototype.forEach.call($("grid").children, function (c) { c.style.transitionDelay = ""; }); }, 1200);
   }
   $("filters").addEventListener("click", function (e) {
     var b = e.target.closest("[data-cat]"); if (!b) return;
     activeCat = b.getAttribute("data-cat"); renderFilters(); renderGrid();
+    var g = $("tienda"); if (g.getBoundingClientRect().top < 0) g.scrollIntoView({ behavior: "smooth" });
   });
   $("grid").addEventListener("click", function (e) {
     var c = e.target.closest("[data-id]"); if (!c) return;
@@ -232,31 +239,40 @@
     var p = byId(id); if (!p) return;
     current = p;
     currentSize = sizeLabel(p);
-    $("pmTalle").textContent = "Talle " + (currentSize === "Único" ? "único" : currentSize);
+    var sz = (p.sizes || []).filter(Boolean); if (!sz.length) sz = ["Único"];
+    $("pmSizes").innerHTML = sz.map(function (x) { return '<span class="size">' + esc(x === "Único" ? "Talle único" : x) + "</span>"; }).join("");
     var cols = colorsOf(p);
     currentColor = cols.length === 1 ? cols[0].name : (cardColor[id] || shownColor(p, null));
     $("productModal").classList.toggle("pm--multi", cols.length > 1);
     $("pmCycleHint").hidden = cols.length < 2;
     $("pmPrev").hidden = $("pmNext").hidden = cols.length < 2;
-    $("colorError").hidden = true;
+   
     renderColors();
     $("pmCategory").textContent = p.category || "";
     $("pmName").textContent = p.name;
     $("pmPrice").textContent = fmt(p.price);
     $("pmDesc").textContent = p.description || "";
+    $("pmImage").removeAttribute("src");
     renderGallery();
     updateConsult();
     openEl($("productModal"));
     $("productModal").scrollTop = 0;
   }
-  function setMainImage(im, alt) { var el = $("pmImage"); el.src = imgSrc(im); el.alt = alt || ""; }
+  function setMainImage(im, alt) {
+    var el = $("pmImage"), src = imgSrc(im);
+    el.alt = alt || "";
+    if (el.getAttribute("src") === src) return;
+    if (!el.getAttribute("src") || $("productModal").hidden) { el.src = src; return; }
+    el.classList.add("is-swap");
+    var pre = new Image(); pre.onload = pre.onerror = function () { el.src = src; el.classList.remove("is-swap"); }; pre.src = src;
+  }
   $("pmThumbs").addEventListener("click", function (e) {
     var b = e.target.closest("[data-img]"); if (!b) return;
     setMainImage(b.getAttribute("data-img"), current.name);
     Array.prototype.forEach.call($("pmThumbs").children, function (x) { x.classList.toggle("is-active", x === b); });
   });
   function setColor(name) {
-    currentColor = name; $("colorError").hidden = true; cardColor[current.id] = name;
+    currentColor = name; cardColor[current.id] = name;
     renderColors(); renderGallery(); updateConsult();
   }
   function stepColor(dir) {
@@ -266,6 +282,19 @@
     setColor(cols[(i + dir + cols.length) % cols.length].name);
   }
   $("pmImage").addEventListener("click", function () { stepColor(1); });
+  // Deslizar la foto con el dedo para cambiar de color
+  (function () {
+    var x0 = null, y0 = 0, st = $("pmImage").parentNode;
+    st.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    st.addEventListener("touchend", function (e) {
+      if (x0 == null) return; var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) { e.preventDefault(); stepColor(dx < 0 ? 1 : -1); }
+    });
+  })();
+  document.addEventListener("keydown", function (e) {
+    if (openLayer !== $("productModal")) return;
+    if (e.key === "ArrowRight") stepColor(1); else if (e.key === "ArrowLeft") stepColor(-1);
+  });
   $("pmPrev").addEventListener("click", function (e) { e.stopPropagation(); stepColor(-1); });
   $("pmNext").addEventListener("click", function (e) { e.stopPropagation(); stepColor(1); });
   $("pmColors").addEventListener("click", function (e) {
@@ -360,5 +389,6 @@
     $("grid").removeAttribute("aria-busy");
     renderFilters(); renderGrid(); openFromHash();
   });
+  window.addEventListener("hashchange", openFromHash);
   checkAdmin();
 })();
