@@ -1,4 +1,15 @@
-# Flor de Pilchas — Tienda online
+<!-- jnce-header -->
+# Flor de Pilchas · Tienda de ropa
+
+> Flor de Pilchas · Tienda de ropa — versión anterior
+
+**🌐 Sitio online:** [flord-pilchasok.vercel.app](https://flord-pilchasok.vercel.app)  
+**🛠️ Tecnologías:** HTML · CSS · JavaScript  
+**👤 Diseño y desarrollo:** [Juan José Cáceres](https://juancjose.github.io/jnce-studio/)
+
+![Vista previa de Flor de Pilchas · Tienda de ropa](docs/preview.jpg)
+
+---
 
 Catálogo web de ropa para el emprendimiento **Flor de Pilchas**: cada prenda tiene su botón **"Consultá stock con Nancy"**, que abre WhatsApp con la prenda, el color y el talle ya escritos. Es un sitio estático, sin base de datos ni backend.
 
